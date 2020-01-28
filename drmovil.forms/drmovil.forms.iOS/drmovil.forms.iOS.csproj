@@ -136,9 +136,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\drmovil.forms\drmovil.Forms.csproj">
+    <ProjectReference Include="..\drmovil.forms\drmovil.forms.csproj">
       <Project>{3C5CF13A-2937-45DD-B55C-3B2E18F011F0}</Project>
-      <Name>drmovil.Forms</Name>
+      <Name>drmovil.forms</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

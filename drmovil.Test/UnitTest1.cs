@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using drmovil.api.Controllers;
 
 namespace drmovil.Test
 {
@@ -12,7 +13,9 @@ namespace drmovil.Test
         [Test]
         public void Test1()
         {
-            Assert.Pass();
+            WeatherForecastController forecastController = new WeatherForecastController(null);
+
+            Assert.IsNotNull(forecastController.Get());
         }
     }
 }

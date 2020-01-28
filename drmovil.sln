@@ -7,11 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "drmovil.forms.Android", "dr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "drmovil.forms.iOS", "drmovil.forms\drmovil.forms.iOS\drmovil.forms.iOS.csproj", "{9BBE0F80-B4BF-4ABD-A27F-EBF9C965A40C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "drmovil.Forms", "drmovil.forms\drmovil.forms\drmovil.Forms.csproj", "{3C5CF13A-2937-45DD-B55C-3B2E18F011F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "drmovil.forms", "drmovil.forms\drmovil.forms\drmovil.forms.csproj", "{3C5CF13A-2937-45DD-B55C-3B2E18F011F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "drmovil.api", "drmovil.api\drmovil.api.csproj", "{5787084F-415C-4F8F-BBF5-0F972D6B9CAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "drmovil.api", "drmovil.api\drmovil.api.csproj", "{5787084F-415C-4F8F-BBF5-0F972D6B9CAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "drmovil.Test", "drmovil.Test\drmovil.Test.csproj", "{3E4C9459-17A2-46DB-9EF0-8C60057F4ADA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "drmovil.Test", "drmovil.Test\drmovil.Test.csproj", "{3E4C9459-17A2-46DB-9EF0-8C60057F4ADA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{9E950D44-30BE-4B60-9A2C-02FA7C2647E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,18 @@ Global
 		{3E4C9459-17A2-46DB-9EF0-8C60057F4ADA}.Release|iPhone.Build.0 = Release|Any CPU
 		{3E4C9459-17A2-46DB-9EF0-8C60057F4ADA}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{3E4C9459-17A2-46DB-9EF0-8C60057F4ADA}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{9E950D44-30BE-4B60-9A2C-02FA7C2647E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E950D44-30BE-4B60-9A2C-02FA7C2647E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E950D44-30BE-4B60-9A2C-02FA7C2647E6}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{9E950D44-30BE-4B60-9A2C-02FA7C2647E6}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{9E950D44-30BE-4B60-9A2C-02FA7C2647E6}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{9E950D44-30BE-4B60-9A2C-02FA7C2647E6}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{9E950D44-30BE-4B60-9A2C-02FA7C2647E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E950D44-30BE-4B60-9A2C-02FA7C2647E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E950D44-30BE-4B60-9A2C-02FA7C2647E6}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{9E950D44-30BE-4B60-9A2C-02FA7C2647E6}.Release|iPhone.Build.0 = Release|Any CPU
+		{9E950D44-30BE-4B60-9A2C-02FA7C2647E6}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{9E950D44-30BE-4B60-9A2C-02FA7C2647E6}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
