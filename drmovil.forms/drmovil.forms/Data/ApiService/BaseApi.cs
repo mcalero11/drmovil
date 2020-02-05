@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using static drmovil.forms.Data.Constants.Constants;
 
 namespace drmovil.forms.Data.ApiService
 {
@@ -13,7 +14,7 @@ namespace drmovil.forms.Data.ApiService
     {
         protected HttpClient _client = null;
 
-        public BaseApi(string baseUrl, string entity)
+        public BaseApi(string baseUrl = BaseURL, string version = nameof(ApiVersion.V1), string prefix = "")
         {
             _client = new HttpClient();
             _client.DefaultRequestHeaders.Add("If-Modified-Since", DateTime.UtcNow.ToString("r")); //Disable caching
@@ -22,18 +23,13 @@ namespace drmovil.forms.Data.ApiService
                              .Accept
                              .Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+            
 
-            if (baseUrl.EndsWith("/"))
-                baseUrl = baseUrl.Substring(0, baseUrl.Length - 1);
-
-            if (entity.StartsWith("/"))
-                entity = entity.Substring(1);
-
-            _client.BaseAddress = new Uri(baseUrl + "/" + entity);
+            _client.BaseAddress = new Uri($"{baseUrl}/{prefix}/{version}");
         }
 
 
-        protected async Task<Result<TOutbound>> Put<TInbound, TOutbound>(TInbound data, string id, String controller)
+        public async Task<Result<TOutbound>> Put<TInbound, TOutbound>(TInbound data, string id, String controller)
         {
 
             var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
@@ -63,7 +59,7 @@ namespace drmovil.forms.Data.ApiService
         }
 
 
-        protected async Task<Result<TOutbound>> Post<TInbound, TOutbound>(TInbound data, String controller)
+        public async Task<Result<TOutbound>> Post<TInbound, TOutbound>(TInbound data, String controller)
         {
 
             var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
@@ -92,7 +88,7 @@ namespace drmovil.forms.Data.ApiService
 
         }
 
-        protected async Task<Result<IList<TOutbound>>> GetList<TOutbound>(String controller, IDictionary<String, String> parameters = null)
+        public async Task<Result<IList<TOutbound>>> GetList<TOutbound>(String controller, IDictionary<String, String> parameters = null)
         {
 
             HttpResponseMessage result = null;
@@ -124,7 +120,7 @@ namespace drmovil.forms.Data.ApiService
         }
 
 
-        protected async Task<Result<TOutbound>> Get<TOutbound>(String id, String controller, IDictionary<String, String> parameters = null)
+        public async Task<Result<TOutbound>> Get<TOutbound>(String id, String controller, IDictionary<String, String> parameters = null)
         {
             HttpResponseMessage result = null;
 
@@ -155,7 +151,7 @@ namespace drmovil.forms.Data.ApiService
             }
         }
 
-        protected async Task<Result<TOutbound>> Delete<TOutbound>(string id, String controller, IDictionary<String, String> parameters = null)
+        public async Task<Result<TOutbound>> Delete<TOutbound>(string id, String controller, IDictionary<String, String> parameters = null)
         {
             HttpResponseMessage result = null;
 
@@ -192,4 +188,4 @@ namespace drmovil.forms.Data.ApiService
 
     }
 }
-}
+

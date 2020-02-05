@@ -1,8 +1,5 @@
 ﻿using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using drmovil.forms.Services;
-using drmovil.forms.Views;
 
 namespace drmovil.forms
 {
@@ -13,7 +10,6 @@ namespace drmovil.forms
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
         }
 
