@@ -31,8 +31,6 @@
 
   <ItemGroup>
     <Folder Include="Data\MockService\" />
-    <Folder Include="ViewModels\tab_configuracion\" />
-    <Folder Include="ViewModels\tab_servicios\" />
   </ItemGroup>
 
   <ItemGroup>

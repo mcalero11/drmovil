@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 
-namespace drmovil.forms.ViewModels.tab_tiendas
+namespace drmovil.forms.ViewModels.tab_servicios
 {
     public class ServicesViewModel : BaseViewModel
     {

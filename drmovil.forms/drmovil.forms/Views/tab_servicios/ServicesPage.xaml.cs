@@ -1,5 +1,4 @@
-﻿using drmovil.forms.ViewModels.tab_tiendas;
-
+﻿using drmovil.forms.ViewModels.tab_servicios;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

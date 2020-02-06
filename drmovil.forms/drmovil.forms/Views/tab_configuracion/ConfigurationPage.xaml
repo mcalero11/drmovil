@@ -3,13 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:drmovil.forms.ViewModels.tab_configuracion"
              mc:Ignorable="d"
+             Shell.NavBarIsVisible="False"
              x:Class="drmovil.forms.Views.tab_configuracion.ConfigurationPage">
+    <ContentPage.BindingContext>
+        <vm:ConfigurationViewModel />
+    </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <TableView Intent="Settings">
+            <TableRoot>
+                <TableSection Title="Generales">
+                    <SwitchCell Text="Activar Respaldos" />
+                    <SwitchCell Text="Confirmar al eliminar" On="true" />
+                </TableSection>
+            </TableRoot>
+        </TableView>
+
     </ContentPage.Content>
 </ContentPage>
