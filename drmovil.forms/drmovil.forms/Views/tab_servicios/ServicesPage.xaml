@@ -3,8 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:drmovil.forms.Controls"
              mc:Ignorable="d"
              x:Class="drmovil.forms.Views.tab_servicios.ServicesPage">
+    <Shell.TitleView>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <controls:ComboBoxControl ItemsSource="{Binding StoreList}"
+                                      SelectedItem="{Binding ItemSelected}"
+                                      HorizontalOptions="FillAndExpand"
+                                      TextColor="White"
+                                      Grid.Column="0"  />
+        </Grid>
+
+    </Shell.TitleView>
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Welcome to Xamarin.Forms!"
