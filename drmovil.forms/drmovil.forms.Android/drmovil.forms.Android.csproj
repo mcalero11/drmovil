@@ -60,6 +60,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Renderers\ComboBoxRenderer.cs" />
     <Compile Include="Renderers\FormsSpinner.cs" />
+    <Compile Include="Renderers\CustomTableViewRenderer.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
+using System.Windows.Input;
 
 namespace drmovil.forms.ViewModels
 {
@@ -14,6 +14,8 @@ namespace drmovil.forms.ViewModels
             get { return isBusy; }
             set { SetProperty(ref isBusy, value); }
         }
+
+        public ICommand RefreshCommand { get; set; }
 
         string title = string.Empty;
         public string Title

@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:drmovil.forms.ViewModels.tab_configuracion"
+             xmlns:controls="clr-namespace:drmovil.forms.Controls"
              mc:Ignorable="d"
              Shell.NavBarIsVisible="False"
              x:Class="drmovil.forms.Views.tab_configuracion.ConfigurationPage">
@@ -11,14 +12,16 @@
         <vm:ConfigurationViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <TableView Intent="Settings">
-            <TableRoot>
-                <TableSection Title="Generales">
-                    <SwitchCell Text="Activar Respaldos" />
-                    <SwitchCell Text="Confirmar al eliminar" On="true" />
-                </TableSection>
-            </TableRoot>
-        </TableView>
-
+        <RefreshView IsRefreshing="{Binding IsBusy}"
+             Command="{Binding RefreshCommand}">
+            <controls:CustomTableView Intent="Settings">
+                <TableRoot>
+                    <TableSection Title="Generales">
+                        <SwitchCell Text="Activar Respaldos" />
+                        <SwitchCell Text="Confirmar al eliminar" On="true" />
+                    </TableSection>
+                </TableRoot>
+            </controls:CustomTableView>
+        </RefreshView>
     </ContentPage.Content>
 </ContentPage>
