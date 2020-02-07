@@ -26,14 +26,36 @@ namespace drmovil.forms.Data.SqliteService
         {
             if (!initialized)
             {
+                // configure tables
+                if (!Database.TableMappings.Any(m => m.MappedType.Name == nameof(Data.Models.Device)))
+                    await Database.CreateTablesAsync(CreateFlags.None, typeof(Models.Device)).ConfigureAwait(false);
+
+                if (!Database.TableMappings.Any(m => m.MappedType.Name == nameof(Data.Models.Product)))
+                    await Database.CreateTablesAsync(CreateFlags.None, typeof(Models.Product)).ConfigureAwait(false);
+
+                if (!Database.TableMappings.Any(m => m.MappedType.Name == nameof(Data.Models.Role)))
+                    await Database.CreateTablesAsync(CreateFlags.None, typeof(Models.Role)).ConfigureAwait(false);
+
                 if (!Database.TableMappings.Any(m => m.MappedType.Name == nameof(Data.Models.Sale)))
-                {
-                    // configure tables
                     await Database.CreateTablesAsync(CreateFlags.None, typeof(Models.Sale)).ConfigureAwait(false);
 
+                if (!Database.TableMappings.Any(m => m.MappedType.Name == nameof(Data.Models.SaleDetail)))
+                    await Database.CreateTablesAsync(CreateFlags.None, typeof(Models.SaleDetail)).ConfigureAwait(false);
 
-                    initialized = true;
-                }
+                if (!Database.TableMappings.Any(m => m.MappedType.Name == nameof(Data.Models.Service)))
+                    await Database.CreateTablesAsync(CreateFlags.None, typeof(Models.Service)).ConfigureAwait(false);
+
+                if (!Database.TableMappings.Any(m => m.MappedType.Name == nameof(Data.Models.Store)))
+                    await Database.CreateTablesAsync(CreateFlags.None, typeof(Models.Store)).ConfigureAwait(false);
+
+                if (!Database.TableMappings.Any(m => m.MappedType.Name == nameof(Data.Models.Task)))
+                    await Database.CreateTablesAsync(CreateFlags.None, typeof(Models.Task)).ConfigureAwait(false);
+
+                if (!Database.TableMappings.Any(m => m.MappedType.Name == nameof(Data.Models.User)))
+                    await Database.CreateTablesAsync(CreateFlags.None, typeof(Models.User)).ConfigureAwait(false);
+
+
+                initialized = true;
             }
         }
 
