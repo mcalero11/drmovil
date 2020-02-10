@@ -15,8 +15,7 @@ namespace Entities
         public List<string> PhotosName { get; set; }
         public int Status { get; set; } // use enum TaskStatus
 
-        public Store Store { get; set; }
-        public int StoreId { get; set; }
+        
 
     }
 }
