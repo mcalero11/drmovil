@@ -6,5 +6,6 @@ namespace drmovil.forms.Data.Models
 {
     public class SaleDetail : Entities.SaleDetail
     {
+        public int SaleId { get; set; }
     }
 }

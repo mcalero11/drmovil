@@ -18,21 +18,11 @@ namespace drmovil.forms.Data.Constants
         {
             get
             {
-                var basePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                var basePath = Xamarin.Essentials.FileSystem.AppDataDirectory;
                 return Path.Combine(basePath, SqliteFilename);
             }
         }
 
-        public enum ActionSyncEnum
-        {
-            Create,
-            Update,
-            Delete
-        }
-
-        public enum ApiVersion
-        {
-            V1 = 1,
-        }
+        
     }
 }

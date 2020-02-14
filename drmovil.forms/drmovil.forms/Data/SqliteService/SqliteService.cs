@@ -1,63 +1,84 @@
-﻿using drmovil.forms.Data.Extensions;
+﻿using drmovil.forms.Data.MockService;
+using drmovil.forms.Data.Models;
 using SQLite;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
+using Task = System.Threading.Tasks.Task;
+using Work = drmovil.forms.Data.Models.Task;
 
 namespace drmovil.forms.Data.SqliteService
 {
-    public class SqliteService 
+    public class SqliteService
     {
-        static readonly Lazy<SQLiteAsyncConnection> lazyInitializer = new Lazy<SQLiteAsyncConnection>(() =>
-        {
-            return new SQLiteAsyncConnection(Constants.Constants.DatabasePath, Constants.Constants.FlagsSqlite);
-        });
-        
-        private static SQLiteAsyncConnection Database => lazyInitializer.Value;
-        
-        static bool initialized = false;
 
         public SqliteService()
         {
-            InitializeAsync().SafeFireAndForget(false);
+
         }
 
-        async Task InitializeAsync()
+        public SQLiteConnection GetConnection()
         {
-            if (!initialized)
-            {
-                // configure tables
-                if (!Database.TableMappings.Any(m => m.MappedType.Name == nameof(Data.Models.Device)))
-                    await Database.CreateTablesAsync(CreateFlags.None, typeof(Models.Device)).ConfigureAwait(false);
-
-                if (!Database.TableMappings.Any(m => m.MappedType.Name == nameof(Data.Models.Product)))
-                    await Database.CreateTablesAsync(CreateFlags.None, typeof(Models.Product)).ConfigureAwait(false);
-
-                if (!Database.TableMappings.Any(m => m.MappedType.Name == nameof(Data.Models.Role)))
-                    await Database.CreateTablesAsync(CreateFlags.None, typeof(Models.Role)).ConfigureAwait(false);
-
-                if (!Database.TableMappings.Any(m => m.MappedType.Name == nameof(Data.Models.Sale)))
-                    await Database.CreateTablesAsync(CreateFlags.None, typeof(Models.Sale)).ConfigureAwait(false);
-
-                if (!Database.TableMappings.Any(m => m.MappedType.Name == nameof(Data.Models.SaleDetail)))
-                    await Database.CreateTablesAsync(CreateFlags.None, typeof(Models.SaleDetail)).ConfigureAwait(false);
-
-                if (!Database.TableMappings.Any(m => m.MappedType.Name == nameof(Data.Models.Service)))
-                    await Database.CreateTablesAsync(CreateFlags.None, typeof(Models.Service)).ConfigureAwait(false);
-
-                if (!Database.TableMappings.Any(m => m.MappedType.Name == nameof(Data.Models.Store)))
-                    await Database.CreateTablesAsync(CreateFlags.None, typeof(Models.Store)).ConfigureAwait(false);
-
-                if (!Database.TableMappings.Any(m => m.MappedType.Name == nameof(Data.Models.Task)))
-                    await Database.CreateTablesAsync(CreateFlags.None, typeof(Models.Task)).ConfigureAwait(false);
-
-                if (!Database.TableMappings.Any(m => m.MappedType.Name == nameof(Data.Models.User)))
-                    await Database.CreateTablesAsync(CreateFlags.None, typeof(Models.User)).ConfigureAwait(false);
-
-
-                initialized = true;
-            }
+            SQLiteConnection connection = new SQLiteConnection(Constants.Constants.DatabasePath, Constants.Constants.FlagsSqlite);
+            
+            return connection;
         }
 
+        public SQLiteAsyncConnection GetAsyncConnection()
+        {
+            SQLiteAsyncConnection connection = new SQLiteAsyncConnection(Constants.Constants.DatabasePath, Constants.Constants.FlagsSqlite);
+
+            return connection;
+        }
+
+        public void CreateTables()
+        {
+            var connection = GetConnection();
+
+            SQLite.TableMapping map = new TableMapping(typeof(SqliteService));
+            object[] args = new object[0];
+
+            int count = connection.Query(map, "SELECT * FROM sqlite_master WHERE type = 'table'", args).Count;
+
+            if (count == 0)
+            {
+                connection.EnableWriteAheadLogging();
+            }
+            connection.CreateTable<Device>();
+            connection.CreateTable<Product>();
+            connection.CreateTable<Role>();
+            connection.CreateTable<Sale>();
+            connection.CreateTable<SaleDetail>();
+            connection.CreateTable<Service>();
+            connection.CreateTable<Store>();
+            connection.CreateTable<Work>();
+            connection.CreateTable<User>();
+
+            if (count == 0)
+            {
+                InitializeData(connection);
+            }
+
+        }
+
+        private void InitializeData(SQLiteConnection connection)
+        {
+
+            connection.InsertAll(new DeviceMock().GetList());
+            connection.InsertAll(new ProductMock().GetList());
+            connection.InsertAll(new RoleMock().GetList());
+            connection.InsertAll(new SaleMock().GetList());
+            connection.InsertAll(new SaleDetailMock().GetList());
+            connection.InsertAll(new ServiceMock().GetList());
+            connection.InsertAll(new StoreMock().GetList());
+            connection.InsertAll(new TaskMock().GetList());
+            connection.InsertAll(new UserMock().GetList());
+
+        }
     }
 }

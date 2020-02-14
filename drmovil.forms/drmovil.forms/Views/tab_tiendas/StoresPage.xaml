@@ -15,6 +15,9 @@
             <Label Text="Welcome to tiendas!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <Button Text="Create"
+                    Command="{Binding CreateCommand}"/>
+            <Label Text="{Binding Label}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

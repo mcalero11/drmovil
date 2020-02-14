@@ -7,9 +7,8 @@ namespace Entities
     public class Sale : IEntity
     {
         public int Correlative { get; set; }
-        public int Quantity { get; set; }
-        public string Details { get; set; }
+        public string Comments { get; set; }
+        public DateTime Date { get; set; } // in current time zone
 
-        
     }
 }

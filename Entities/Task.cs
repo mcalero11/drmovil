@@ -12,7 +12,7 @@ namespace Entities
         public string AdditionalComments { get; set; }
         public bool PublicShare { get; set; } // default true
 
-        public List<string> PhotosName { get; set; }
+        //public List<string> PhotosName { get; set; }
         public int Status { get; set; } // use enum TaskStatus
 
         

@@ -19,5 +19,16 @@ namespace Entities
             Seller,
             Technician,
         };
+        public enum ActionSyncEnum
+        {
+            Create,
+            Update,
+            Delete
+        }
+
+        public enum ApiVersion
+        {
+            V1 = 1,
+        }
     }
 }

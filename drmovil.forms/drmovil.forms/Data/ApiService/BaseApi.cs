@@ -14,7 +14,7 @@ namespace drmovil.forms.Data.ApiService
     {
         protected HttpClient _client = null;
 
-        public BaseApi(string baseUrl = BaseURL, string version = nameof(ApiVersion.V1), string prefix = "")
+        public BaseApi(string baseUrl = BaseURL, string version = nameof(Entities.Helpers.ApiVersion.V1), string prefix = "")
         {
             _client = new HttpClient();
             _client.DefaultRequestHeaders.Add("If-Modified-Since", DateTime.UtcNow.ToString("r")); //Disable caching
