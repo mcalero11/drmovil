@@ -9,6 +9,6 @@ namespace Entities
         public int Correlative { get; set; }
         public string Comments { get; set; }
         public DateTime Date { get; set; } // in current time zone
-
+        public string Customer { get; set; }
     }
 }

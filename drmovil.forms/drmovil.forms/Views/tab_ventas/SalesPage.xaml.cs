@@ -21,5 +21,7 @@ namespace drmovil.forms.Views.tab_ventas
             _salesViewModel = new SalesViewModel();
             this.BindingContext = _salesViewModel;
         }
+
+        
     }
 }

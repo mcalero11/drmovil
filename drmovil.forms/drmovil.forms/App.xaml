@@ -6,6 +6,27 @@
              mc:Ignorable="d"
              x:Class="drmovil.forms.App">
     <Application.Resources>
-        
+        <ResourceDictionary>
+            <Color x:Key="BackgroundColor">#F5F5F5</Color>
+            <Color x:Key="TextColor">#707070</Color>
+
+            <OnPlatform x:TypeArguments="x:String" 
+                        x:Key="Roboto-Medium-Font" >
+                <On Platform="Android" Value="fonts/Roboto-Medium.ttf#Medium" />
+            </OnPlatform>
+            <OnPlatform x:TypeArguments="x:String" 
+                        x:Key="RobotoMono-Regular-Font" >
+                <On Platform="Android" Value="fonts/RobotoMono-Regular.ttf#Regular" />
+            </OnPlatform>
+            <OnPlatform x:TypeArguments="x:String" 
+                        x:Key="RobotoMono-Medium-Font" >
+                <On Platform="Android" Value="fonts/RobotoMono-Medium.ttf#Medium" />
+            </OnPlatform>
+            <OnPlatform x:TypeArguments="x:String" 
+                        x:Key="RobotoMono-Light-Font" >
+                <On Platform="Android" Value="fonts/RobotoMono-Light.ttf#Light" />
+            </OnPlatform>
+            
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

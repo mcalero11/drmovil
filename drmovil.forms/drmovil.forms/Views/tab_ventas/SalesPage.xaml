@@ -4,27 +4,42 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:drmovil.forms.Controls"
+             xmlns:templates="clr-namespace:drmovil.forms.Templates"
              mc:Ignorable="d"
-             x:Class="drmovil.forms.Views.tab_ventas.SalesPage">
+             x:Class="drmovil.forms.Views.tab_ventas.SalesPage"
+             BackgroundColor="{StaticResource BackgroundColor}">
     <Shell.TitleView>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <controls:ComboBoxControl ItemsSource="{Binding StoreList}"
+            <controls:ComboBoxControl ItemsSource="{Binding StoreList}" 
                                       SelectedItem="{Binding ItemSelected}"
                                       HorizontalOptions="FillAndExpand"
-                                      TextColor="White"
                                       Grid.Column="0"  />
         </Grid>
         
     </Shell.TitleView>
+    
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <controls:CustomListView ItemsSource="{Binding SalesList}"
+                                     IsRefreshing="{Binding IsBusy}"
+                                     IsPullToRefreshEnabled="True"
+                                     RefreshCommand="{Binding RefreshCommand}"
+                                     SeparatorVisibility="None"
+                                     ItemClickCommand="{Binding ItemSelectedCommand}"
+                                     BackgroundColor="Transparent">
+                <controls:CustomListView.ItemTemplate>
+                    <DataTemplate>
+                        <templates:SaleViewCell />
+                    </DataTemplate>
+                </controls:CustomListView.ItemTemplate>
+            </controls:CustomListView>
+
+
         </StackLayout>
+        
     </ContentPage.Content>
 </ContentPage>
