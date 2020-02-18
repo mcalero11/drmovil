@@ -1,11 +1,4 @@
-﻿using drmovil.forms.ViewModels;
-using drmovil.forms.ViewModels.tab_ventas;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using drmovil.forms.ViewModels.tab_ventas;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

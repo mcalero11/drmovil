@@ -49,12 +49,12 @@ namespace drmovil.forms.ViewModels.tab_ventas
             SalesList = new ObservableCollection<Sale>(salesMockList);
 
             RefreshCommand = new Command(async () => await RefreshList());
-            ItemSelectedCommand = new Command<object>(GoTo);
+            ItemSelectedCommand = new Command<object>(async (obj) => await GoTo(obj));
         }
 
-        private void GoTo(object obj)
+        private async Task GoTo(object obj)
         {
-            
+            await Shell.Current.GoToAsync("sales/details");
         }
 
         private async Task RefreshList()

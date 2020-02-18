@@ -11,8 +11,8 @@ namespace Entities
         public string Diagnostic { get; set; }
         public string AdditionalComments { get; set; }
         public bool PublicShare { get; set; } // default true
-
-        //public List<string> PhotosName { get; set; }
+        public string PublicLink { get; set; }
+        public DateTime CreatedAt { get; set; }
         public int Status { get; set; } // use enum TaskStatus
 
         

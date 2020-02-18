@@ -7,6 +7,8 @@ namespace drmovil.api.Contexts
     {
         #region DbSet
         public DbSet<Device> Devices { get; set; }
+        public DbSet<Mark> Marks { get; set; }
+        public DbSet<Model> Models { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Sale> Sales { get; set; }
@@ -14,6 +16,8 @@ namespace drmovil.api.Contexts
         public DbSet<Service> Services { get; set; }
         public DbSet<Store> Stores { get; set; }
         public DbSet<Task> Tasks { get; set; }
+        public DbSet<TaskLog> TaskLogs { get; set; }
+        public DbSet<TaskPhotos> TaskPhotos { get; set; }
         public DbSet<User> Users { get; set; }
 
         #endregion

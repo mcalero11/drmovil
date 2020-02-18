@@ -58,6 +58,10 @@ namespace drmovil.forms.Data.SqliteService
             connection.CreateTable<Store>();
             connection.CreateTable<Work>();
             connection.CreateTable<User>();
+            connection.CreateTable<Mark>();
+            connection.CreateTable<Model>();
+            connection.CreateTable<TaskLog>();
+            connection.CreateTable<TaskPhotos>();
 
             if (count == 0)
             {
@@ -78,6 +82,10 @@ namespace drmovil.forms.Data.SqliteService
             connection.InsertAll(new StoreMock().GetList());
             connection.InsertAll(new TaskMock().GetList());
             connection.InsertAll(new UserMock().GetList());
+            connection.InsertAll(new MarkMock().GetList());
+            connection.InsertAll(new ModelMock().GetList());
+            connection.InsertAll(new TaskLogMock().GetList());
+            connection.InsertAll(new TaskPhotosMock().GetList());
 
         }
     }

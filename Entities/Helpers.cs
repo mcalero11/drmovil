@@ -7,10 +7,10 @@ namespace Entities
     public static class Helpers
     {
         public enum TaskStatus{
-            InReview,
-            Rejected,
-            InProgress,
-            Completed,
+            InReview, // #1273eb
+            Rejected, // #ec3a3b
+            InProgress,// #1273eb
+            Completed, // #49d295
         };
 
         public enum Roles

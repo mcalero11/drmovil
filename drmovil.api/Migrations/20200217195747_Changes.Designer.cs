@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using drmovil.api.Contexts;
@@ -9,9 +10,10 @@ using drmovil.api.Contexts;
 namespace drmovil.api.Migrations
 {
     [DbContext(typeof(PostgresContext))]
-    partial class PostgresContextModelSnapshot : ModelSnapshot
+    [Migration("20200217195747_Changes")]
+    partial class Changes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,9 +83,6 @@ namespace drmovil.api.Migrations
                     b.Property<int>("Hash")
                         .HasColumnType("integer");
 
-                    b.Property<int>("MarkId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("ModelName")
                         .HasColumnType("text");
 
@@ -91,8 +90,6 @@ namespace drmovil.api.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MarkId");
 
                     b.HasIndex("StoreId");
 
@@ -249,7 +246,7 @@ namespace drmovil.api.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<int?>("StoreId")
+                    b.Property<int>("StoreId")
                         .HasColumnType("integer");
 
                     b.Property<int>("UserId")
@@ -258,6 +255,8 @@ namespace drmovil.api.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("StoreId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Services");
                 });
@@ -276,9 +275,6 @@ namespace drmovil.api.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("TimeZone")
                         .HasColumnType("text");
 
                     b.Property<int>("UserId")
@@ -316,8 +312,14 @@ namespace drmovil.api.Migrations
                     b.Property<int>("Hash")
                         .HasColumnType("integer");
 
+                    b.Property<int>("MarkId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("ModelId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("MyProperty")
+                        .HasColumnType("text");
 
                     b.Property<string>("PublicLink")
                         .HasColumnType("text");
@@ -325,27 +327,19 @@ namespace drmovil.api.Migrations
                     b.Property<bool>("PublicShare")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("ServiceId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
                     b.Property<int>("StoreId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("MarkId");
 
                     b.HasIndex("ModelId");
 
-                    b.HasIndex("ServiceId");
-
                     b.HasIndex("StoreId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Tasks");
                 });
@@ -455,12 +449,6 @@ namespace drmovil.api.Migrations
 
             modelBuilder.Entity("drmovil.api.Models.Model", b =>
                 {
-                    b.HasOne("drmovil.api.Models.Mark", "Mark")
-                        .WithMany()
-                        .HasForeignKey("MarkId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("drmovil.api.Models.Store", "Store")
                         .WithMany()
                         .HasForeignKey("StoreId")
@@ -522,7 +510,15 @@ namespace drmovil.api.Migrations
                 {
                     b.HasOne("drmovil.api.Models.Store", "Store")
                         .WithMany()
-                        .HasForeignKey("StoreId");
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("drmovil.api.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("drmovil.api.Models.Store", b =>
@@ -536,27 +532,21 @@ namespace drmovil.api.Migrations
 
             modelBuilder.Entity("drmovil.api.Models.Task", b =>
                 {
+                    b.HasOne("drmovil.api.Models.Mark", "Mark")
+                        .WithMany()
+                        .HasForeignKey("MarkId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("drmovil.api.Models.Model", "Model")
                         .WithMany()
                         .HasForeignKey("ModelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("drmovil.api.Models.Service", "Service")
-                        .WithMany()
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("drmovil.api.Models.Store", "Store")
                         .WithMany()
                         .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("drmovil.api.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

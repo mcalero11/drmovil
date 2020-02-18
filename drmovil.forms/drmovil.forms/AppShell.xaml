@@ -33,19 +33,25 @@
     </Shell.Resources>
 
     <TabBar>
-        <Tab Title="Ventas" Icon="tab_ventas.png">
-            <ShellContent ContentTemplate="{DataTemplate salesView:SalesPage}" />
+        <Tab Title="Ventas" 
+             Icon="tab_ventas.png">
+            <ShellContent Route="sales"
+                          ContentTemplate="{DataTemplate salesView:SalesPage}" />
         </Tab>
-        <Tab Title="Servicios" Icon="tab_servicios.png">
-            <ShellContent ContentTemplate="{DataTemplate servicesView:ServicesPage}" />
+        <Tab Title="Servicios" 
+             Icon="tab_servicios.png">
+            <ShellContent Route="services" 
+                          ContentTemplate="{DataTemplate servicesView:ServicesPage}" />
         </Tab>
-        <Tab Title="Tiendas" Icon="tab_tiendas.png">
-            <ShellContent>
+        <Tab Title="Tiendas" 
+             Icon="tab_tiendas.png">
+            <ShellContent Route="stores">
                 <storesView:StoresPage />
             </ShellContent>
         </Tab>
-        <Tab Title="Opciones" Icon="tab_configuracion.png" >
-            <ShellContent>
+        <Tab Title="Opciones" 
+             Icon="tab_configuracion.png" >
+            <ShellContent Route="configurations">
                 <configurationsView:ConfigurationPage />
             </ShellContent>
         </Tab>

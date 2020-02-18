@@ -1,4 +1,5 @@
-﻿using System;
+﻿using drmovil.forms.Views.tab_ventas;
+using System;
 using System.Collections.Generic;
 
 using Xamarin.Forms;
@@ -10,6 +11,9 @@ namespace drmovil.forms
         public AppShell()
         {
             InitializeComponent();
+
+            // Register routes
+            Routing.RegisterRoute("sales/details", typeof(SaleDetailPage));
         }
     }
 }

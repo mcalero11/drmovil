@@ -23,23 +23,19 @@
     </Shell.TitleView>
     
     <ContentPage.Content>
-        <StackLayout>
-            <controls:CustomListView ItemsSource="{Binding SalesList}"
-                                     IsRefreshing="{Binding IsBusy}"
-                                     IsPullToRefreshEnabled="True"
-                                     RefreshCommand="{Binding RefreshCommand}"
-                                     SeparatorVisibility="None"
-                                     ItemClickCommand="{Binding ItemSelectedCommand}"
-                                     BackgroundColor="Transparent">
-                <controls:CustomListView.ItemTemplate>
-                    <DataTemplate>
-                        <templates:SaleViewCell />
-                    </DataTemplate>
-                </controls:CustomListView.ItemTemplate>
-            </controls:CustomListView>
+        <controls:CustomListView ItemsSource="{Binding SalesList}"
+                                 IsRefreshing="{Binding IsBusy}"
+                                 IsPullToRefreshEnabled="True"
+                                 RefreshCommand="{Binding RefreshCommand}"
+                                 SeparatorVisibility="None"
+                                 ItemClickCommand="{Binding ItemSelectedCommand}"
+                                 BackgroundColor="Transparent">
+            <controls:CustomListView.ItemTemplate>
+                <DataTemplate>
+                    <templates:SaleViewCell />
+                </DataTemplate>
+            </controls:CustomListView.ItemTemplate>
+        </controls:CustomListView>
 
-
-        </StackLayout>
-        
     </ContentPage.Content>
 </ContentPage>

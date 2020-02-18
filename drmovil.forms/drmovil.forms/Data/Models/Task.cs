@@ -9,5 +9,14 @@ namespace drmovil.forms.Data.Models
         public int StoreId { get; set; }
         public int UserId { get; set; } // worked on
         public int ServiceId { get; set; }
+        public int ModelId { get; set; }
+
+        public string GetModelAndMark
+        {
+            get
+            {
+                return "Samsung Galaxy S10 +";
+            }
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace Entities
     {
         public string Name { get; set; }
         public string ImageName { get; set; }
+        public string TimeZone { get; set; }
 
-        
     }
 }
