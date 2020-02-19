@@ -1,26 +1,45 @@
-﻿using drmovil.forms.Data.Repository;
-using System;
-using System.Collections.Generic;
+﻿using drmovil.forms.Data.MockService;
+using drmovil.forms.Data.Models;
+using System.Collections.ObjectModel;
 using System.Text;
 using Xamarin.Forms;
+using Work = drmovil.forms.Data.Models.Task;
+using Task = System.Threading.Tasks.Task;
 
 namespace drmovil.forms.ViewModels.tab_tiendas
 {
     public class StoresViewModel : BaseViewModel
     {
-        private string _label;
+		
+		private ObservableCollection<Store> _storeList;
 
-        public string Label
+		public ObservableCollection<Store> StoreList
+		{
+			get { return _storeList; }
+			set { SetProperty(ref _storeList, value); }
+		}
+
+		public Command ItemSelectedCommand { get; set; }
+		public StoresViewModel()
         {
-            get { return _label ; }
-            set { SetProperty(ref _label, value); }
+            Title = "Mis tiendas";
+            var storeMockList = new StoreMock().GetList();
+            StoreList = new ObservableCollection<Store>(storeMockList);
+
+
+            RefreshCommand = new Command(async () => await RefreshList());
+            ItemSelectedCommand = new Command<object>(async (obj) => await GoTo(obj));
         }
+		private async Task RefreshList()
+		{
+			await Task.Delay(200);
+			IsBusy = false;
+		}
 
-        public Command CreateCommand => new Command(CrearEjemplo);
+		private async Task GoTo(object obj)
+		{
+			//await Shell.Current.GoToAsync("sales/details");
+		}
 
-        private async void CrearEjemplo()
-        {
-
-        }
-    }
+	}
 }

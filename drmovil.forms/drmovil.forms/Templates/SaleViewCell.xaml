@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              x:Class="drmovil.forms.Templates.SaleViewCell">
   <ViewCell.View>
-        <Grid Margin="0,5,0,0"
+        <Grid Margin="0,7,0,0"
               Padding="6,8"
               BackgroundColor="White">
             <Grid.ColumnDefinitions>

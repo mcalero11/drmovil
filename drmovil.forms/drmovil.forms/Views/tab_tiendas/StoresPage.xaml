@@ -4,20 +4,28 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:drmovil.forms.ViewModels.tab_tiendas"
+             xmlns:controls="clr-namespace:drmovil.forms.Controls"
+             xmlns:templates="clr-namespace:drmovil.forms.Templates"
              mc:Ignorable="d"
-             Shell.NavBarIsVisible="False"
-             x:Class="drmovil.forms.Views.tab_tiendas.StoresPage">
+             x:Class="drmovil.forms.Views.tab_tiendas.StoresPage"
+             BackgroundColor="{StaticResource BackgroundColor}"
+             Title="{Binding Title}">
     <ContentPage.BindingContext>
         <vm:StoresViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to tiendas!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            <Button Text="Create"
-                    Command="{Binding CreateCommand}"/>
-            <Label Text="{Binding Label}"/>
-        </StackLayout>
+        <controls:CustomListView ItemsSource="{Binding StoreList}"
+                                 IsRefreshing="{Binding IsBusy}"
+                                 IsPullToRefreshEnabled="True"
+                                 RefreshCommand="{Binding RefreshCommand}"
+                                 SeparatorVisibility="None"
+                                 ItemClickCommand="{Binding ItemSelectedCommand}"
+                                 BackgroundColor="Transparent">
+            <controls:CustomListView.ItemTemplate>
+                <DataTemplate>
+                    <templates:StoreViewCell />
+                </DataTemplate>
+            </controls:CustomListView.ItemTemplate>
+        </controls:CustomListView>
     </ContentPage.Content>
 </ContentPage>

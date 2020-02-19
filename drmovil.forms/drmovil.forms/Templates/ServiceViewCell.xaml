@@ -7,7 +7,7 @@
           xmlns:converters="clr-namespace:drmovil.forms.Converters"
           x:Class="drmovil.forms.Templates.ServiceViewCell">
     <ViewCell.View>
-        <StackLayout Margin="0,5,0,0"
+        <StackLayout Margin="0,7,0,0"
                      Padding="6,8"
                      BackgroundColor="White"
                      Spacing="10"
@@ -24,7 +24,7 @@
             </StackLayout.Resources>
             <Grid HorizontalOptions="Start"
                   Margin="7,0,0,0"
-                  MinimumWidthRequest="75">
+                  MinimumWidthRequest="95">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
@@ -35,7 +35,9 @@
                        TextColor="#002BFF"
                        HorizontalTextAlignment="Start"
                        VerticalTextAlignment="Center"
-                       FontSize="Large"/>
+                       FontSize="Large"
+                       MaxLines="1"
+                       LineBreakMode="HeadTruncation"/>
                 <Grid Grid.Row="1"
                       VerticalOptions="Start"
                       RowSpacing="1">
@@ -76,7 +78,8 @@
                        VerticalOptions="Start"
                        VerticalTextAlignment="Start"
                        HorizontalOptions="Start"
-                       LineBreakMode="TailTruncation"/>
+                       LineBreakMode="TailTruncation"
+                           MaxLines="1"/>
                 </Grid>
 
             </Grid>
