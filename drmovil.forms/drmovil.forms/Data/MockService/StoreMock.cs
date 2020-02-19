@@ -13,10 +13,14 @@ namespace drmovil.forms.Data.MockService
                 new Store {
                      Name = "DrMovil San Miguel",
                      UserId = 1,
+                     Country = "El Salvador",
+                     Department = "San Miguel",
                 },
                 new Store {
                      Name = "DrMovil Chinameca",
                      UserId = 1,
+                     Country = "El Salvador",
+                     Department = "Chinameca",
                 },
 
             };

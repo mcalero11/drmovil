@@ -38,8 +38,14 @@ namespace drmovil.forms.ViewModels.tab_tiendas
 
 		private async Task GoTo(object obj)
 		{
-			//await Shell.Current.GoToAsync("sales/details");
+			await Shell.Current.GoToAsync("sales/details");
 		}
 
+		public Command ButtonCommand => new Command(show);
+
+		private void show()
+		{
+			App.Current.MainPage.DisplayAlert("ok","ok","ok");
+		}
 	}
 }

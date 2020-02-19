@@ -12,6 +12,7 @@ namespace drmovil.forms.Controls
         {
             this.ItemTapped += this.OnItemTapped;
             this.HasUnevenRows = true;
+            this.RefreshControlColor = (Color)Application.Current.Resources["AccentColor"];
         }
 
         public static BindableProperty ItemClickCommandProperty =

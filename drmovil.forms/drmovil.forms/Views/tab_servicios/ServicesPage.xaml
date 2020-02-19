@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:drmovil.forms.Controls"
-             xmlns:templates="clr-namespace:drmovil.forms.Templates"
+             xmlns:converters="clr-namespace:drmovil.forms.Converters"
              mc:Ignorable="d"
              x:Class="drmovil.forms.Views.tab_servicios.ServicesPage"
              BackgroundColor="{StaticResource BackgroundColor}">
@@ -22,6 +22,16 @@
         </Grid>
 
     </Shell.TitleView>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:CompletedIconConverter x:Key="CompletedConverter" />
+            <converters:CopyIconConverter x:Key="CopyConverter" />
+            <converters:InProgressIconConverter x:Key="InProgressConverter" />
+            <converters:InReviewIconConverter x:Key="InReviewConverter" />
+            <converters:RejectedIconConverter x:Key="RejectedConverter" />
+            <converters:StatusConverter x:Key="StatusConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <controls:CustomListView ItemsSource="{Binding TaskList}"
                                  IsRefreshing="{Binding IsBusy}"
@@ -32,7 +42,136 @@
                                  BackgroundColor="Transparent">
             <controls:CustomListView.ItemTemplate>
                 <DataTemplate>
-                    <templates:ServiceViewCell />
+                    <ViewCell>
+                        <StackLayout Margin="0,7,0,0"
+                     Padding="6,8"
+                     BackgroundColor="White"
+                     Spacing="10"
+                     Orientation="Horizontal">
+                            <Grid HorizontalOptions="Start"
+                  Margin="7,0,0,0"
+                  MinimumWidthRequest="95">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0"
+                       Text="{Binding Correlative, StringFormat='{0:D5}'}" 
+                       FontFamily="{StaticResource RobotoMono-Regular-Font}"
+                       TextColor="#002BFF"
+                       HorizontalTextAlignment="Start"
+                       VerticalTextAlignment="Center"
+                       FontSize="Large"
+                       MaxLines="1"
+                       LineBreakMode="HeadTruncation"/>
+                                <Grid Grid.Row="1"
+                      VerticalOptions="Start"
+                      RowSpacing="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0"
+                          ColumnSpacing="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0"
+                           WidthRequest="14"
+                           VerticalOptions="Center"
+                           Source="{Binding Status, Converter={StaticResource InReviewConverter}}"/>
+                                        <Image Grid.Column="1"
+                           WidthRequest="14"
+                           VerticalOptions="Center"
+                           Source="{Binding Status, Converter={StaticResource RejectedConverter}}"/>
+                                        <Image Grid.Column="2"
+                           WidthRequest="14"
+                           VerticalOptions="Center"
+                           Source="{Binding Status, Converter={StaticResource InProgressConverter}}"/>
+                                        <Image Grid.Column="3"
+                           WidthRequest="14"
+                           VerticalOptions="Center"
+                           Source="{Binding Status, Converter={StaticResource CompletedConverter}}"/>
+
+                                    </Grid>
+                                    <Label Grid.Row="1"
+                       Text="{Binding Status, Converter={StaticResource StatusConverter}}" 
+                       TextColor="{StaticResource TextColor}"
+                       FontSize="Default"
+                       VerticalOptions="Start"
+                       VerticalTextAlignment="Start"
+                       HorizontalOptions="Start"
+                       LineBreakMode="TailTruncation"
+                           MaxLines="1"/>
+                                </Grid>
+
+                            </Grid>
+                            <Grid HorizontalOptions="FillAndExpand"
+                  Margin="0,0,7,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0"
+                           MaxLines="2"
+                           Text="{Binding GetModelAndMark}" 
+                           TextColor="{StaticResource TextColor}"
+                           FontSize="Body"
+                           FontFamily="{StaticResource Roboto-Medium-Font}"
+                           VerticalTextAlignment="Center"
+                           HorizontalOptions="Start"
+                           LineBreakMode="TailTruncation"/>
+                                    <ImageButton Grid.Column="1"
+                                 WidthRequest="18"
+                                 VerticalOptions="Start"
+                                 HorizontalOptions="End"
+                                 Source="{Binding PublicShare, Converter={StaticResource CopyConverter}}"/>
+                                </Grid>
+                                <Label Grid.Row="1"
+                       MaxLines="2"
+                       Text="{Binding Diagnostic}" 
+                       TextColor="{StaticResource TextColor}"
+                       FontSize="Body"
+                       VerticalTextAlignment="Start"
+                       HorizontalOptions="Start"
+                       LineBreakMode="TailTruncation"/>
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0"
+                           MaxLines="1"
+                           FontFamily="{StaticResource Roboto-Medium-Font}"
+                           Text="{Binding DeviceType}" 
+                           TextColor="{StaticResource TextColor}"
+                           FontSize="Body"
+                           VerticalTextAlignment="Center"
+                           HorizontalOptions="Start"
+                           LineBreakMode="TailTruncation"/>
+                                    <Label Grid.Column="1"
+                           MaxLines="1"
+                           Text="{Binding CreatedAt, StringFormat='{0:dd/MMM/yyyy}'}" 
+                           FontFamily="{StaticResource Roboto-Medium-Font}"
+                           TextColor="{StaticResource TextColor}"
+                           FontSize="Body"
+                           VerticalTextAlignment="Center"
+                           HorizontalOptions="End"
+                           LineBreakMode="TailTruncation"/>
+                                </Grid>
+                            </Grid>
+                        </StackLayout>
+
+                    </ViewCell>
                 </DataTemplate>
             </controls:CustomListView.ItemTemplate>
         </controls:CustomListView>

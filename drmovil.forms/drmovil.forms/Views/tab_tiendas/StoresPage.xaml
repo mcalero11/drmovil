@@ -5,11 +5,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:drmovil.forms.ViewModels.tab_tiendas"
              xmlns:controls="clr-namespace:drmovil.forms.Controls"
-             xmlns:templates="clr-namespace:drmovil.forms.Templates"
+             xmlns:converters="clr-namespace:drmovil.forms.Converters"
              mc:Ignorable="d"
              x:Class="drmovil.forms.Views.tab_tiendas.StoresPage"
              BackgroundColor="{StaticResource BackgroundColor}"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             x:Name="page">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:TrendIconConverter x:Key="TrendConverter" />
+            <converters:MoneyConverter x:Key="MoneyConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.BindingContext>
         <vm:StoresViewModel />
     </ContentPage.BindingContext>
@@ -23,7 +30,176 @@
                                  BackgroundColor="Transparent">
             <controls:CustomListView.ItemTemplate>
                 <DataTemplate>
-                    <templates:StoreViewCell />
+                    <ViewCell>
+                        <Grid CompressedLayout.IsHeadless="True"
+                              HeightRequest="185"
+                              Margin="0,7,0,0">
+                            <Grid.Resources>
+                                <ResourceDictionary>
+                                    <converters:TrendIconConverter x:Key="TrendConverter" />
+                                    <converters:MoneyConverter x:Key="MoneyConverter" />
+                                </ResourceDictionary>
+                            </Grid.Resources>
+                            <Image Source="shop.png"
+                   Aspect="AspectFit"/>
+                            <controls:GradientOverlayView IsVisible="True" 
+                                          HasGradientStartInset="True" />
+                            <StackLayout Margin="10,20,6,10"
+                         VerticalOptions="FillAndExpand"
+                         Spacing="20">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="0.38*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0"
+                                           Text="{Binding Name}"
+                                           FontSize="Title"
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="FillAndExpand"
+                                           VerticalOptions="Center"
+                                           HorizontalTextAlignment="Start"
+                                           VerticalTextAlignment="Center"
+                                           LineBreakMode="TailTruncation"/>
+                                    <Grid Grid.Column="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0"
+                                               WidthRequest="14"
+                                               Source="maps_store_icon.png"
+                                               VerticalOptions="Center"/>
+                                        <Label Grid.Column="1"
+                                               Text="{Binding GetLocation}" 
+                                               MaxLines="2"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="Start"
+                                               HorizontalTextAlignment="Start"
+                                               VerticalTextAlignment="Center"
+                                               LineBreakMode="TailTruncation"/>
+                                    </Grid>
+
+                                </Grid>
+                                <Grid HorizontalOptions="FillAndExpand"
+                                      VerticalOptions="CenterAndExpand"
+                                      Margin="25,0"
+                                      BindingContext="{Binding Source={x:Reference page}, Path=BindingContext}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0"
+                                           HorizontalOptions="Center"
+                                           MinimumHeightRequest="30"
+                                           MinimumWidthRequest="30"
+                                           WidthRequest="30"
+                                           HeightRequest="30"
+                                           Aspect="AspectFit"
+                                           Source="a_store_button.png"
+                                           BackgroundColor="Transparent">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding ButtonCommand}" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                    <Image Grid.Column="1"
+                                           HorizontalOptions="Center"
+                                           MinimumHeightRequest="30"
+                                           MinimumWidthRequest="30"
+                                           WidthRequest="30"
+                                           HeightRequest="30"
+                                           Aspect="AspectFit"
+                                           Source="b_store_button.png"
+                                           BackgroundColor="Transparent">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding ButtonCommand}" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                    <Image Grid.Column="2"
+                                           HorizontalOptions="Center"
+                                           MinimumHeightRequest="30"
+                                           MinimumWidthRequest="30"
+                                           WidthRequest="30"
+                                           HeightRequest="30"
+                                           Aspect="AspectFit"
+                                           Source="c_store_button.png"
+                                           BackgroundColor="Transparent">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding ButtonCommand}" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                    <Image Grid.Column="3"
+                                           HorizontalOptions="Center"
+                                           MinimumHeightRequest="30"
+                                           MinimumWidthRequest="30"
+                                           WidthRequest="30"
+                                           HeightRequest="30"
+                                           Aspect="AspectFit"
+                                           Source="d_store_button.png"
+                                           BackgroundColor="Transparent">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding ButtonCommand}" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+
+                                </Grid>
+                                <Grid HorizontalOptions="FillAndExpand"
+                      Margin="3,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout Grid.Column="0"
+                                 Spacing="0">
+                                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="Center">
+                                            <Label Text="{Binding TodaySales, Converter={StaticResource MoneyConverter}}" 
+                                   FontFamily="{StaticResource RobotoMono-Regular-Font}"
+                                   TextColor="Black"/>
+                                            <Image WidthRequest="10"
+                                   Source="{Binding TodaySales, Converter={StaticResource TrendConverter}}"/>
+                                        </StackLayout>
+                                        <Label Text="Hoy" 
+                               HorizontalOptions="CenterAndExpand"
+                                   HorizontalTextAlignment="Center"/>
+                                    </StackLayout>
+                                    <StackLayout Grid.Column="1"
+                                 Spacing="0">
+                                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="Center">
+                                            <Label Text="{Binding WeekSales, Converter={StaticResource MoneyConverter}}" 
+                                   FontFamily="{StaticResource RobotoMono-Regular-Font}"
+                                   TextColor="Black"/>
+                                            <Image WidthRequest="10"
+                                   Source="{Binding WeekSales, Converter={StaticResource TrendConverter}}"/>
+                                        </StackLayout>
+                                        <Label Text="Últimos 7 días" 
+                               HorizontalOptions="CenterAndExpand"
+                                   HorizontalTextAlignment="Center"/>
+                                    </StackLayout>
+                                    <StackLayout Grid.Column="2"
+                                 Spacing="0">
+                                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="Center">
+                                            <Label Text="{Binding MonthSales, Converter={StaticResource MoneyConverter}}" 
+                                   FontFamily="{StaticResource RobotoMono-Regular-Font}"
+                                   TextColor="Black"/>
+                                            <Image WidthRequest="10"
+                                   Source="{Binding MonthSales, Converter={StaticResource TrendConverter}}"/>
+                                        </StackLayout>
+                                        <Label Text="Febrero" 
+                               HorizontalOptions="CenterAndExpand"
+                                   HorizontalTextAlignment="Center"/>
+                                    </StackLayout>
+
+                                </Grid>
+                            </StackLayout>
+                        </Grid>
+
+                    </ViewCell>
                 </DataTemplate>
             </controls:CustomListView.ItemTemplate>
         </controls:CustomListView>

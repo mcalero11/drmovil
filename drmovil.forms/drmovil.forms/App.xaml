@@ -8,6 +8,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <Color x:Key="BackgroundColor">#F5F5F5</Color>
+            <Color x:Key="AccentColor">#795548</Color>
             <Color x:Key="TextColor">#707070</Color>
 
             <OnPlatform x:TypeArguments="x:String" 
