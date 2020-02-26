@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Text;
 using Xamarin.Forms;
 using Task = System.Threading.Tasks.Task;
+using Xamarin.Essentials;
+using drmovil.forms.Data.Repository;
 
 namespace drmovil.forms.ViewModels.tab_ventas
 {
@@ -42,14 +44,14 @@ namespace drmovil.forms.ViewModels.tab_ventas
         public SalesViewModel()
         {
             var storeMockList = new StoreMock().GetList();
-            var salesMockList = new SaleMock().GetList();
             StoreList = new ObservableCollection<string>(storeMockList.Select(x => x.Name).ToList());
             ItemSelected = storeMockList.FirstOrDefault().Name;
-
-            SalesList = new ObservableCollection<Sale>(salesMockList);
-
+            
             RefreshCommand = new Command(async () => await RefreshList());
             ItemSelectedCommand = new Command<object>(async (obj) => await GoTo(obj));
+
+            IsBusy = true;
+            RefreshCommand.Execute(null);
         }
 
         private async Task GoTo(object obj)
@@ -59,8 +61,37 @@ namespace drmovil.forms.ViewModels.tab_ventas
 
         private async Task RefreshList()
         {
-            await Task.Delay(200);
+            var current = Connectivity.NetworkAccess;
+
+            if (current == NetworkAccess.Internet)
+            {
+                // Connection to internet is available
+                SalesList = new ObservableCollection<Sale>(await getFromServer());
+            }
+            else
+            {
+                SalesList = new ObservableCollection<Sale>(getFromLocal());
+            }
             IsBusy = false;
         }
+
+        private List<Sale> getFromLocal()
+        {
+            Repository<Sale> saleRepository = new Repository<Sale>();
+
+            return saleRepository.GetFirst(0).ToList();
+
+        }
+        private async Task<List<Sale>> getFromServer()
+        {
+            await Task.Delay(5000);
+            
+            Repository<Sale> saleRepository = new Repository<Sale>();
+
+            return saleRepository.GetFirst(0).ToList();
+
+
+        }
+
     }
 }

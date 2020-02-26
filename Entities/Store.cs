@@ -12,5 +12,6 @@ namespace Entities
         public string Country { get; set; }
         public string Department { get; set; }
 
+        public int UserId { get; set; }
     }
 }

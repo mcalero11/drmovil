@@ -48,6 +48,11 @@ namespace drmovil.forms.Data.Repository
         {
             throw new NotImplementedException();
         }
+        public Task<IList<T>> GetFirstAsync(int rows)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
         public bool Add(T entity)
         {
@@ -90,6 +95,28 @@ namespace drmovil.forms.Data.Repository
 
             return rows > 0;
         }
+
+        /// <summary>
+        /// Returns a list of T, if rows minor than 1 returns all register
+        /// </summary>
+        /// <param name="rows"></param>
+        /// <returns></returns>
+        public IList<T> GetFirst(int rows)
+        {
+            if (!validateConnection()) return null;
+            List<T> list = null;
+            if (rows<1)
+            {
+                list = connection.Table<T>().ToList();
+            }
+            else
+            {
+                list = connection.Table<T>().Take(rows).ToList();
+            }
+            
+            return list;
+        }
+
 
         /// <summary>
         /// Returns true when the connection is Successful

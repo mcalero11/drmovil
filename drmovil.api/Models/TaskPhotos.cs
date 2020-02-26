@@ -8,6 +8,5 @@ namespace drmovil.api.Models
     public class TaskPhotos : Entities.TaskPhotos
     {
         public Task Task { get; set; }
-        public int TaskId { get; set; }
     }
 }

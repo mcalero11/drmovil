@@ -7,5 +7,6 @@ namespace drmovil.api.Models
 {
     public class Customer : Entities.Customer
     {
+        public Store Store { get; set; }
     }
 }

@@ -7,7 +7,8 @@ namespace drmovil.forms.Data.Models
     {
         [PrimaryKey, AutoIncrement]
         public new int Id { get; set; }
-        
+
+
         [Ignore]
         public int DetailCount { 
             get

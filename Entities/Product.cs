@@ -12,6 +12,7 @@ namespace Entities
         public bool IsInventoryTracking { get; set; }
         public int InventoryQuantity { get; set; }
 
-        
+        public int StoreId { get; set; }
+
     }
 }

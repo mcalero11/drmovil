@@ -10,6 +10,7 @@ namespace Entities
         public string ProductName { get; set; }
         public decimal Price { get; set; }
 
-        
+        public int SaleId { get; set; }
+        public int ProductId { get; set; }
     }
 }

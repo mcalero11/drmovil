@@ -13,11 +13,13 @@ namespace drmovil.forms.Data.Repository
         Task<bool> DeleteAsync(T entity);
         Task<bool> UpdateAsync(T entity);
         Task<T> FindByIdAsync(int Id);
+        Task<IList<T>> GetFirstAsync(int rows);
         #endregion
 
         bool Add(T entity);
         bool Delete(T entity);
         bool Update(T entity);
         T FindById(int Id);
+        IList<T> GetFirst(int rows);
     }
 }

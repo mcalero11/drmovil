@@ -7,5 +7,7 @@ namespace Entities
     public class Mark : IEntity // Brand of cellphone
     {
         public string MarkName { get; set; }
+
+        public int StoreId { get; set; }
     }
 }

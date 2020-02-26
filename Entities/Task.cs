@@ -15,7 +15,12 @@ namespace Entities
         public DateTime CreatedAt { get; set; }
         public int Status { get; set; } // use enum TaskStatus
 
-        
+
+        public int UserId { get; set; }
+        public int ServiceId { get; set; }
+        public int ModelId { get; set; }
+        public int CustomerId { get; set; }
+        public int StoreId { get; set; }
 
     }
 }
