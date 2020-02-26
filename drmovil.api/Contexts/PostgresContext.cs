@@ -19,6 +19,7 @@ namespace drmovil.api.Contexts
         public DbSet<TaskLog> TaskLogs { get; set; }
         public DbSet<TaskPhotos> TaskPhotos { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
         #endregion
 
