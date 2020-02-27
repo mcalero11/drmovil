@@ -10,7 +10,11 @@ namespace drmovil.forms.Data.MockService
         public List<Role> GetList()
         {
             return new List<Role> { 
-            
+                new Role{
+                     RoleType = (int)Entities.Helpers.Roles.Technician,
+                     UserId = 1,
+                     StoreId = 3,
+                },
             };
         }
     }

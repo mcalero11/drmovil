@@ -8,11 +8,11 @@ namespace drmovil.forms.Data.Repository
 {
     public class Repository<T> : IRepository<T> where T : Entities.IEntity, new()
     {
-        private SQLiteConnection connection = null;
-        private SQLiteAsyncConnection connectionAsync = null;
+        protected SQLiteConnection connection = null;
+        protected SQLiteAsyncConnection connectionAsync = null;
 
         /// <summary>
-        /// Returns an instance of REpository
+        /// Returns an instance of Repository
         /// </summary>
         /// <param name="isAsync">Specify when the connection required is asyc</param>
         public Repository(bool isAsync = false)

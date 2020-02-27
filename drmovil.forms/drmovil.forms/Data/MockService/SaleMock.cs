@@ -27,7 +27,6 @@ namespace drmovil.forms.Data.MockService
                     Customer = "Juan Pérez",
                 },
                 new Sale{
-                    Id = 20,
                     UserId = 1,
                     StoreId = 2,
                     Comments = "Este es un ejemplo 3",

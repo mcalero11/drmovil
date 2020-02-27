@@ -1,7 +1,5 @@
 ﻿
-using drmovil.forms.Data.SqliteService;
-using System.Threading.Tasks;
-using Xamarin.Essentials;
+using drmovil.forms.Views;
 using Xamarin.Forms;
 
 namespace drmovil.forms
@@ -13,10 +11,7 @@ namespace drmovil.forms
         {
             InitializeComponent();
 
-            var sqlite = new SqliteService();
-            sqlite.CreateTables();
-
-            MainPage = new AppShell();
+            MainPage = new LoginPage();
 
         }
 

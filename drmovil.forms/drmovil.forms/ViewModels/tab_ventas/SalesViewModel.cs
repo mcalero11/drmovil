@@ -11,6 +11,7 @@ using Xamarin.Forms;
 using Task = System.Threading.Tasks.Task;
 using Xamarin.Essentials;
 using drmovil.forms.Data.Repository;
+using drmovil.forms.Helpers;
 
 namespace drmovil.forms.ViewModels.tab_ventas
 {
@@ -43,9 +44,8 @@ namespace drmovil.forms.ViewModels.tab_ventas
         public Command ItemSelectedCommand { get; set; }
         public SalesViewModel()
         {
-            var storeMockList = new StoreMock().GetList();
-            StoreList = new ObservableCollection<string>(storeMockList.Select(x => x.Name).ToList());
-            ItemSelected = storeMockList.FirstOrDefault().Name;
+            StoreList = new ObservableCollection<string>(Settings.Stores.Select(x => x.Name).ToList());
+            ItemSelected = Settings.Stores.FirstOrDefault().Name;
             
             RefreshCommand = new Command(async () => await RefreshList());
             ItemSelectedCommand = new Command<object>(async (obj) => await GoTo(obj));

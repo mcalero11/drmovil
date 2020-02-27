@@ -17,6 +17,14 @@ namespace drmovil.forms.Data.MockService
                      FirstName = "Marvin",
                      LastName = "Calero",
                 },
+                new User {
+                     Username = "User2",
+                     Password = "1234",
+                     Email = "test@test.com",
+                     FirstName = "Test",
+                     LastName = "Test",
+                },
+
             };
         }
     }

@@ -34,12 +34,6 @@
                         <Grid CompressedLayout.IsHeadless="True"
                               HeightRequest="185"
                               Margin="0,7,0,0">
-                            <Grid.Resources>
-                                <ResourceDictionary>
-                                    <converters:TrendIconConverter x:Key="TrendConverter" />
-                                    <converters:MoneyConverter x:Key="MoneyConverter" />
-                                </ResourceDictionary>
-                            </Grid.Resources>
                             <Image Source="shop.png"
                    Aspect="AspectFit"/>
                             <controls:GradientOverlayView IsVisible="True" 
