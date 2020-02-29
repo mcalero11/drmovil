@@ -33,28 +33,38 @@ namespace drmovil.forms.ViewModels.tab_servicios
 			set { SetProperty(ref _storeList, value); }
 		}
 
-		private string _itemSelected;
+		private string _storeSelectedName;
 
-		public string ItemSelected
+		public string StoreSelectedName
 		{
-			get { return _itemSelected; }
-			set { SetProperty(ref _itemSelected, value); }
+			get { return _storeSelectedName; }
+			set { SetProperty(ref _storeSelectedName, value); }
 		}
+
+		private Store StoreSelected = null;
 		public Command ItemSelectedCommand { get; set; }
+		public Command SelectedStoreChangedCommand { get; set; }
 
 		public ServicesViewModel()
 		{
 			StoreList = new ObservableCollection<string>(Settings.Stores.Select(x => x.Name).ToList());
-			ItemSelected = Settings.Stores.FirstOrDefault().Name;
+			StoreSelectedName = Settings.Stores.FirstOrDefault().Name;
 
-
+			SelectedStoreChangedCommand = new Command<object>(async (obj) => await SelectedStoreChanged(obj));
 			RefreshCommand = new Command(async () => await RefreshList());
 			ItemSelectedCommand = new Command<object>(async (obj) => await GoTo(obj));
 
-			IsBusy = true;
-			RefreshCommand.Execute(null);
 		}
 
+		public async Task SelectedStoreChanged(object store)
+		{
+			if (store is Store)
+			{
+				StoreSelected = (Store)store;
+			}
+			IsBusy = true;
+			await RefreshList();
+		}
 		private async Task RefreshList()
 		{
 			var current = Connectivity.NetworkAccess;
@@ -62,28 +72,30 @@ namespace drmovil.forms.ViewModels.tab_servicios
 			if (current == NetworkAccess.Internet)
 			{
 				// Connection to internet is available
-				TaskList = new ObservableCollection<Work>(await getFromServer());
+				TaskList = new ObservableCollection<Work>(await getFromServer(StoreSelected));
 			}
 			else
 			{
-				TaskList = new ObservableCollection<Work>(getFromLocal());
+				TaskList = new ObservableCollection<Work>(getFromLocal(StoreSelected));
 			}
+
+			IsEmpty = TaskList?.Count == 0;
 			IsBusy = false;
 		}
-		private List<Work> getFromLocal()
+		private List<Work> getFromLocal(Store store)
 		{
-			Repository<Work> taskRepository = new Repository<Work>();
+			ServiceRepository<Work> serviceRepository = new ServiceRepository<Work>();
 
-			return taskRepository.GetFirst(0).ToList();
+			return serviceRepository.GetTasksByStore(store).ToList();
 
 		}
-		private async Task<List<Work>> getFromServer()
+		private async Task<List<Work>> getFromServer(Store store)
 		{
-			await Task.Delay(5000);
+			await Task.Delay(1000);
 
-			Repository<Work> taskRepository = new Repository<Work>();
+			ServiceRepository<Work> serviceRepository = new ServiceRepository<Work>();
 
-			return taskRepository.GetFirst(0).ToList();
+			return serviceRepository.GetTasksByStore(store).ToList();
 
 
 		}

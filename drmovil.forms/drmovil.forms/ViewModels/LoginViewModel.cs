@@ -60,7 +60,7 @@ namespace drmovil.forms.ViewModels
         }
         private async Task<List<Store>> getFromServer()
         {
-            await Task.Delay(5000);
+            await Task.Delay(0);
 
             StoreRepository<Store> storeRepository = new StoreRepository<Store>();
 

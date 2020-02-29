@@ -8,9 +8,6 @@ namespace drmovil.forms.Data.Repository
 {
     public class StoreRepository<T> : Repository<T> where T : Store, new()
     {
-        public StoreRepository(bool isAsync = false) : base(isAsync)
-        {
-        }
 
         public IList<Store> GetMyStores()
         {

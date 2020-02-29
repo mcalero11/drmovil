@@ -10,109 +10,130 @@
              BackgroundColor="{StaticResource BackgroundColor}">
     <Shell.TitleView>
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <controls:ComboBoxControl ItemsSource="{Binding StoreList}" 
-                                      SelectedItem="{Binding ItemSelected}"
-                                      HorizontalOptions="FillAndExpand"
-                                      Grid.Column="0"  />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <controls:ComboBoxControl Grid.Column="0" 
+                                          ItemsSource="{Binding StoreList }" 
+                                          SelectedItem="{Binding ItemSelected}"
+                                          HorizontalOptions="FillAndExpand" 
+                                          SelectedIndexChanged="ComboBoxControl_SelectedIndexChanged"
+                                        />
+                <StackLayout Grid.Column="1"
+                             Orientation="Horizontal"
+                             HorizontalOptions="End"
+                             Spacing="12"
+                             Margin="0,0,5,0">
+                    <Image Source="ic_search_white_36dp"/>
+                    <Image Source="ic_add_white_36dp">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NewSaleCommand}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                </StackLayout>
+            </Grid>
+            <SearchBar IsVisible="False"/>
         </Grid>
+        
         
     </Shell.TitleView>
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:MoneyConverter x:Key="MoneyConverter" />
+            <converters:ReverseBooleanConverter x:Key="ReverseBooleanConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <controls:CustomListView ItemsSource="{Binding SalesList}"
+        <Grid>
+            <controls:CustomListView ItemsSource="{Binding SalesList}"
+                                     IsVisible="{Binding IsEmpty, Converter={StaticResource ReverseBooleanConverter}}"
                                  IsRefreshing="{Binding IsBusy}"
                                  IsPullToRefreshEnabled="True"
                                  RefreshCommand="{Binding RefreshCommand}"
                                  SeparatorVisibility="None"
                                  ItemClickCommand="{Binding ItemSelectedCommand}"
-                                 BackgroundColor="Transparent">
-            <controls:CustomListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid Margin="0,7,0,0"
+                                 BackgroundColor="Transparent" >
+                <controls:CustomListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Margin="0,7,0,0"
               Padding="6,8"
               BackgroundColor="White">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <StackLayout Grid.Column="0"
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout Grid.Column="0"
                          Margin="7,0,0,0"
                          VerticalOptions="Center"
                          Spacing="7">
-                                <Grid VerticalOptions="Center"
+                                    <Grid VerticalOptions="Center"
                       ColumnSpacing="10">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Image Grid.Column="0"
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0"
                            WidthRequest="18"
                            VerticalOptions="Center"
                            Source="customer_icon.png"/>
-                                    <Label Grid.Column="1"
+                                        <Label Grid.Column="1"
                            Text="{Binding Customer}" 
                            TextColor="{StaticResource TextColor}"
                            FontSize="Body"
                            VerticalOptions="Center"
                            VerticalTextAlignment="Center"
                            LineBreakMode="TailTruncation"/>
-                                </Grid>
-                                <Grid VerticalOptions="Center"
+                                    </Grid>
+                                    <Grid VerticalOptions="Center"
                       ColumnSpacing="10">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Image Grid.Column="0"
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0"
                            WidthRequest="18"
                            VerticalOptions="Center"
                            Source="sale_icon.png"/>
-                                    <Label Grid.Column="1"
+                                        <Label Grid.Column="1"
                            Text="{Binding DetailCount}" 
                            TextColor="{StaticResource TextColor}"
                            FontSize="Body"
                            VerticalOptions="Center"
                            VerticalTextAlignment="Center"
                            LineBreakMode="TailTruncation"/>
-                                </Grid>
-                                <Grid VerticalOptions="Center"
+                                    </Grid>
+                                    <Grid VerticalOptions="Center"
                       ColumnSpacing="10">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Image Grid.Column="0"
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0"
                            WidthRequest="18"
                            Source="date_icon.png"
                            VerticalOptions="Center"/>
-                                    <Label Grid.Column="1"
+                                        <Label Grid.Column="1"
                            Text="{Binding Date, StringFormat='{0:dd/MMM/yyyy}'}" 
                            TextColor="{StaticResource TextColor}"
                            FontSize="Body"
                            VerticalOptions="Center"
                            VerticalTextAlignment="Center"
                            LineBreakMode="TailTruncation"/>
-                                </Grid>
+                                    </Grid>
 
-                            </StackLayout>
-                            <Grid Grid.Column="1"
+                                </StackLayout>
+                                <Grid Grid.Column="1"
                   HorizontalOptions="End"
                   VerticalOptions="FillAndExpand"
                   Margin="0,0,7,0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Label Grid.Row="0"
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0"
                        Text="{Binding TotalPrice, Converter={StaticResource MoneyConverter}}" 
                        FontFamily="{StaticResource RobotoMono-Light-Font}"
                        TextColor="{StaticResource TextColor}"
@@ -120,20 +141,29 @@
                        VerticalTextAlignment="Center"
                        HorizontalTextAlignment="End"
                        FontSize="Title"/>
-                                <Label Grid.Row="1"
+                                    <Label Grid.Row="1"
                        Text="{Binding Correlative, StringFormat='{0:D5}'}" 
                        FontFamily="{StaticResource RobotoMono-Regular-Font}"
                        TextColor="#002BFF"
                        HorizontalTextAlignment="End"
                        FontSize="Medium"/>
 
+                                </Grid>
                             </Grid>
-                        </Grid>
 
-                    </ViewCell>
-                </DataTemplate>
-            </controls:CustomListView.ItemTemplate>
-        </controls:CustomListView>
+                        </ViewCell>
+                    </DataTemplate>
+                </controls:CustomListView.ItemTemplate>
+            </controls:CustomListView>
 
+            <Image Source="empty_box"
+                   VerticalOptions="Start"
+                   HorizontalOptions="Center"
+                   Margin="35"
+                   HeightRequest="125"
+                   IsVisible="{Binding IsEmpty}"/>
+        </Grid>
+        
+        
     </ContentPage.Content>
 </ContentPage>

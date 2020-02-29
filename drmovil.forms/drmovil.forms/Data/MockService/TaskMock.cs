@@ -47,7 +47,7 @@ namespace drmovil.forms.Data.MockService
                      AdditionalComments = "",
                      Status = (int)Entities.Helpers.TaskStatus.Rejected,
                      PublicShare = true,
-                     StoreId = 1,
+                     StoreId = 2,
                      UserId = 1,
                      ServiceId = 4,
                      ModelId = 5,

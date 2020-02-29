@@ -101,7 +101,7 @@ namespace drmovil.forms.Data.Repository
         /// </summary>
         /// <param name="rows"></param>
         /// <returns></returns>
-        public IList<T> GetFirst(int rows)
+        public IList<T> GetFirst(int rows = 0)
         {
             if (!validateConnection()) return null;
             List<T> list = null;
@@ -116,6 +116,7 @@ namespace drmovil.forms.Data.Repository
             
             return list;
         }
+
 
 
         /// <summary>

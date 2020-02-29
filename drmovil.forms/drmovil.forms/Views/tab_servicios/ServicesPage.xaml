@@ -10,15 +10,26 @@
              BackgroundColor="{StaticResource BackgroundColor}">
     <Shell.TitleView>
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <controls:ComboBoxControl ItemsSource="{Binding StoreList}"
-                                      SelectedItem="{Binding ItemSelected}"
-                                      HorizontalOptions="FillAndExpand"
-                                      TextColor="White"
-                                      Grid.Column="0"  />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <controls:ComboBoxControl Grid.Column="0" 
+                                          ItemsSource="{Binding StoreList}" 
+                                          SelectedItem="{Binding StoreSelectedName}"
+                                          HorizontalOptions="FillAndExpand"
+                                         SelectedIndexChanged="ComboBoxControl_SelectedIndexChanged"/>
+                <StackLayout Grid.Column="1"
+                             Orientation="Horizontal"
+                             HorizontalOptions="End"
+                             Spacing="12"
+                             Margin="0,0,5,0">
+                    <Image Source="ic_search_white_36dp"/>
+                    <Image Source="ic_add_white_36dp"/>
+                </StackLayout>
+            </Grid>
+            <SearchBar IsVisible="False"/>
         </Grid>
 
     </Shell.TitleView>
@@ -30,32 +41,35 @@
             <converters:InReviewIconConverter x:Key="InReviewConverter" />
             <converters:RejectedIconConverter x:Key="RejectedConverter" />
             <converters:StatusConverter x:Key="StatusConverter" />
+            <converters:ReverseBooleanConverter x:Key="ReverseBooleanConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <controls:CustomListView ItemsSource="{Binding TaskList}"
-                                 IsRefreshing="{Binding IsBusy}"
-                                 IsPullToRefreshEnabled="True"
-                                 RefreshCommand="{Binding RefreshCommand}"
-                                 SeparatorVisibility="None"
-                                 ItemClickCommand="{Binding ItemSelectedCommand}"
-                                 BackgroundColor="Transparent">
-            <controls:CustomListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Margin="0,7,0,0"
+        <Grid>
+            <controls:CustomListView ItemsSource="{Binding TaskList}"
+                                     IsRefreshing="{Binding IsBusy}"
+                                     IsPullToRefreshEnabled="True"
+                                     RefreshCommand="{Binding RefreshCommand}"
+                                     SeparatorVisibility="None"
+                                     ItemClickCommand="{Binding ItemSelectedCommand}"
+                                     IsVisible="{Binding IsEmpty, Converter={StaticResource ReverseBooleanConverter}}"
+                                     BackgroundColor="Transparent">
+                <controls:CustomListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Margin="0,7,0,0"
                      Padding="6,8"
                      BackgroundColor="White"
                      Spacing="10"
                      Orientation="Horizontal">
-                            <Grid HorizontalOptions="Start"
+                                <Grid HorizontalOptions="Start"
                   Margin="7,0,0,0"
                   MinimumWidthRequest="95">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-                                <Label Grid.Row="0"
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0"
                        Text="{Binding Correlative, StringFormat='{0:D5}'}" 
                        FontFamily="{StaticResource RobotoMono-Regular-Font}"
                        TextColor="#002BFF"
@@ -64,40 +78,40 @@
                        FontSize="Large"
                        MaxLines="1"
                        LineBreakMode="HeadTruncation"/>
-                                <Grid Grid.Row="1"
+                                    <Grid Grid.Row="1"
                       VerticalOptions="Start"
                       RowSpacing="1">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <Grid Grid.Row="0"
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0"
                           ColumnSpacing="1">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Image Grid.Column="0"
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Image Grid.Column="0"
                            WidthRequest="14"
                            VerticalOptions="Center"
                            Source="{Binding Status, Converter={StaticResource InReviewConverter}}"/>
-                                        <Image Grid.Column="1"
+                                            <Image Grid.Column="1"
                            WidthRequest="14"
                            VerticalOptions="Center"
                            Source="{Binding Status, Converter={StaticResource RejectedConverter}}"/>
-                                        <Image Grid.Column="2"
+                                            <Image Grid.Column="2"
                            WidthRequest="14"
                            VerticalOptions="Center"
                            Source="{Binding Status, Converter={StaticResource InProgressConverter}}"/>
-                                        <Image Grid.Column="3"
+                                            <Image Grid.Column="3"
                            WidthRequest="14"
                            VerticalOptions="Center"
                            Source="{Binding Status, Converter={StaticResource CompletedConverter}}"/>
 
-                                    </Grid>
-                                    <Label Grid.Row="1"
+                                        </Grid>
+                                        <Label Grid.Row="1"
                        Text="{Binding Status, Converter={StaticResource StatusConverter}}" 
                        TextColor="{StaticResource TextColor}"
                        FontSize="Default"
@@ -106,22 +120,22 @@
                        HorizontalOptions="Start"
                        LineBreakMode="TailTruncation"
                            MaxLines="1"/>
-                                </Grid>
+                                    </Grid>
 
-                            </Grid>
-                            <Grid HorizontalOptions="FillAndExpand"
+                                </Grid>
+                                <Grid HorizontalOptions="FillAndExpand"
                   Margin="0,0,7,0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Row="0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="0"
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0"
                            MaxLines="2"
                            Text="{Binding GetModelAndMark}" 
                            TextColor="{StaticResource TextColor}"
@@ -130,13 +144,13 @@
                            VerticalTextAlignment="Center"
                            HorizontalOptions="Start"
                            LineBreakMode="TailTruncation"/>
-                                    <ImageButton Grid.Column="1"
+                                        <ImageButton Grid.Column="1"
                                  WidthRequest="18"
                                  VerticalOptions="Start"
                                  HorizontalOptions="End"
                                  Source="{Binding PublicShare, Converter={StaticResource CopyConverter}}"/>
-                                </Grid>
-                                <Label Grid.Row="1"
+                                    </Grid>
+                                    <Label Grid.Row="1"
                        MaxLines="2"
                        Text="{Binding Diagnostic}" 
                        TextColor="{StaticResource TextColor}"
@@ -144,12 +158,12 @@
                        VerticalTextAlignment="Start"
                        HorizontalOptions="Start"
                        LineBreakMode="TailTruncation"/>
-                                <Grid Grid.Row="2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="0"
+                                    <Grid Grid.Row="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0"
                            MaxLines="1"
                            FontFamily="{StaticResource Roboto-Medium-Font}"
                            Text="{Binding DeviceType}" 
@@ -158,7 +172,7 @@
                            VerticalTextAlignment="Center"
                            HorizontalOptions="Start"
                            LineBreakMode="TailTruncation"/>
-                                    <Label Grid.Column="1"
+                                        <Label Grid.Column="1"
                            MaxLines="1"
                            Text="{Binding CreatedAt, StringFormat='{0:dd/MMM/yyyy}'}" 
                            FontFamily="{StaticResource Roboto-Medium-Font}"
@@ -167,13 +181,23 @@
                            VerticalTextAlignment="Center"
                            HorizontalOptions="End"
                            LineBreakMode="TailTruncation"/>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </StackLayout>
+                            </StackLayout>
 
-                    </ViewCell>
-                </DataTemplate>
-            </controls:CustomListView.ItemTemplate>
-        </controls:CustomListView>
+
+
+                        </ViewCell>
+                    </DataTemplate>
+                </controls:CustomListView.ItemTemplate>
+            </controls:CustomListView>
+            <Image Source="empty_box"
+                   VerticalOptions="Start"
+                   HorizontalOptions="Center"
+                   Margin="35"
+                   HeightRequest="125"
+                   IsVisible="{Binding IsEmpty}"/>
+        </Grid>
+        
     </ContentPage.Content>
 </ContentPage>

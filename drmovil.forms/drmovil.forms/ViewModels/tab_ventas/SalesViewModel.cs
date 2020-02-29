@@ -33,62 +33,87 @@ namespace drmovil.forms.ViewModels.tab_ventas
             set { SetProperty(ref _storeList, value); }
         }
 
-        private string _itemSelected;
+        private string _storeSelectedName;
 
-        public string ItemSelected
+        public string StoreSelectedName
         {
-            get { return _itemSelected; }
-            set { SetProperty(ref _itemSelected, value); }
+            get { return _storeSelectedName; }
+            set { SetProperty(ref _storeSelectedName, value); }
         }
 
+        private Store StoreSelected = null;
         public Command ItemSelectedCommand { get; set; }
+        public Command NewSaleCommand { get; set; }
+        public Command SelectedStoreChangedCommand { get; set; }
         public SalesViewModel()
         {
             StoreList = new ObservableCollection<string>(Settings.Stores.Select(x => x.Name).ToList());
-            ItemSelected = Settings.Stores.FirstOrDefault().Name;
-            
+            StoreSelectedName = Settings.StoreSeleted.Name;
+
+            SelectedStoreChangedCommand = new Command<object>(async (obj) => await SelectedStoreChanged(obj));
             RefreshCommand = new Command(async () => await RefreshList());
             ItemSelectedCommand = new Command<object>(async (obj) => await GoTo(obj));
+            NewSaleCommand = new Command(async () => await NewSale());
 
-            IsBusy = true;
-            RefreshCommand.Execute(null);
         }
 
-        private async Task GoTo(object obj)
+        private async Task GoTo(object sale)
         {
             await Shell.Current.GoToAsync("sales/details");
         }
 
+        private async Task NewSale()
+        {
+            await Shell.Current.GoToAsync("sales/details");
+        }
+        public async Task SelectedStoreChanged(object store)
+        {
+            if (store is Store)
+            {
+                StoreSelected = (Store)store;
+            }
+            IsBusy = true;
+            await RefreshList();
+        }
         private async Task RefreshList()
         {
+            if (StoreSelected is null)
+            {
+                IsBusy = false;
+                return;
+            }
+            
             var current = Connectivity.NetworkAccess;
 
             if (current == NetworkAccess.Internet)
             {
                 // Connection to internet is available
-                SalesList = new ObservableCollection<Sale>(await getFromServer());
+                SalesList = new ObservableCollection<Sale>(await getFromServer(StoreSelected));
             }
             else
             {
-                SalesList = new ObservableCollection<Sale>(getFromLocal());
+                SalesList = new ObservableCollection<Sale>(getFromLocal(StoreSelected));
             }
+
+            IsEmpty = SalesList?.Count == 0;
+
             IsBusy = false;
         }
 
-        private List<Sale> getFromLocal()
+        private List<Sale> getFromLocal(Store store)
         {
-            Repository<Sale> saleRepository = new Repository<Sale>();
+            SaleRepository<Sale> saleRepository = new SaleRepository<Sale>();
 
-            return saleRepository.GetFirst(0).ToList();
+            return saleRepository.GetSalesByStore(store).ToList();
 
         }
-        private async Task<List<Sale>> getFromServer()
+        private async Task<List<Sale>> getFromServer(Store store)
         {
-            await Task.Delay(5000);
-            
-            Repository<Sale> saleRepository = new Repository<Sale>();
+            await Task.Delay(500);
 
-            return saleRepository.GetFirst(0).ToList();
+            SaleRepository<Sale> saleRepository = new SaleRepository<Sale>();
+
+            return saleRepository.GetSalesByStore(store).ToList();
 
 
         }

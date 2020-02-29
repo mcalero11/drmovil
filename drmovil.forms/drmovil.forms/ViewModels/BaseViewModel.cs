@@ -15,6 +15,15 @@ namespace drmovil.forms.ViewModels
             set { SetProperty(ref isBusy, value); }
         }
 
+        bool _isEmpty = false;
+
+        public bool IsEmpty
+        {
+            get { return _isEmpty; }
+            set { SetProperty(ref _isEmpty, value); }
+        }
+
+
         public ICommand RefreshCommand { get; set; }
 
         string title = string.Empty;
