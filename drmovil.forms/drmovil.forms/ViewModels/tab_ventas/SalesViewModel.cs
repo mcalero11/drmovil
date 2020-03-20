@@ -59,7 +59,7 @@ namespace drmovil.forms.ViewModels.tab_ventas
 
         private async Task GoTo(object sale)
         {
-            await Shell.Current.GoToAsync("sales/details");
+            await Shell.Current.GoToAsync($"///sales/details?sale={sale}");
         }
 
         private async Task NewSale()

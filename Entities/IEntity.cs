@@ -9,4 +9,7 @@ namespace Entities
         public int Id { get; set; }
         public int Hash { get; set; }
     }
+    
+
+
 }

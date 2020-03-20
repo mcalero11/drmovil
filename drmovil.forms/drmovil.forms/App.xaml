@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:behaviors="clr-namespace:drmovil.forms.Behaviors"
              mc:Ignorable="d"
              x:Class="drmovil.forms.App">
     <Application.Resources>
@@ -10,6 +11,8 @@
             <Color x:Key="BackgroundColor">#F5F5F5</Color>
             <Color x:Key="AccentColor">#795548</Color>
             <Color x:Key="TextColor">#707070</Color>
+            <Color x:Key="DisableColor">#CFD9E0</Color>
+            <Color x:Key="ErrorColor">#E15555</Color>
 
             <OnPlatform x:TypeArguments="x:String" 
                         x:Key="Roboto-Medium-Font" >
@@ -27,7 +30,34 @@
                         x:Key="RobotoMono-Light-Font" >
                 <On Platform="Android" Value="fonts/RobotoMono-Light.ttf#Light" />
             </OnPlatform>
-            
+
+            <Style x:Key="EntryStyle" TargetType="{x:Type Entry}">
+                <Setter Property="TextColor" Value="{StaticResource TextColor}" />
+                <Setter Property="PlaceholderColor" Value="{StaticResource DisableColor}" />
+                <Setter Property="FontSize" Value="Default" />
+                <Setter Property="behaviors:LineColorBehavior.ApplyLineColor" Value="True" />
+                <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource TextColor}" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="Margin" Value="0" />
+                <Style.Triggers>
+                    <Trigger TargetType="Entry" Property="IsFocused" Value="True">
+                        <Setter Property="Opacity" Value="1" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Default" />
+                <Setter Property="TextColor" Value="{StaticResource TextColor}" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+            </Style>
+            <Style x:Key="LabelErrorStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Caption" />
+                <Setter Property="TextColor" Value="{StaticResource ErrorColor}" />
+                <Setter Property="Margin" Value="0,0,0,9" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

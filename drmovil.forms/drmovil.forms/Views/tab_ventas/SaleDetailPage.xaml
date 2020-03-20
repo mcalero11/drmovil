@@ -3,14 +3,143 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:drmovil.forms.Converters"
+             xmlns:behaviors="clr-namespace:drmovil.forms.Behaviors"
+             xmlns:effects="clr-namespace:drmovil.forms.Effects"
+             xmlns:autoSuggest="clr-namespace:dotMorten.Xamarin.Forms;assembly=dotMorten.Xamarin.Forms.AutoSuggestBox"
              mc:Ignorable="d"
              Shell.TabBarIsVisible="False"
-             x:Class="drmovil.forms.Views.tab_ventas.SaleDetailPage">
+             x:Class="drmovil.forms.Views.tab_ventas.SaleDetailPage"
+             BackgroundColor="{StaticResource BackgroundColor}">
+    <ContentPage.Resources>
+        <converters:ShowFirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to sale detail"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ScrollView Grid.Row="0">
+                <StackLayout>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               Text="Marvin Calero, Dr.Movil San Miguel, San Miguel, El Salvador"
+                               FontSize="Caption"
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Start"
+                               MaxLines="3"
+                               LineBreakMode="TailTruncation"/>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0"
+                                   Text="Correlativo" 
+                                   VerticalOptions="Center"
+                                   VerticalTextAlignment="Center"
+                                   HorizontalTextAlignment="End"
+                                   MaxLines="1"
+                                   LineBreakMode="TailTruncation"/>
+                            <Frame Grid.Column="1"
+                                   BorderColor="{StaticResource DisableColor}"
+                                   Padding="0"
+                                   CornerRadius="5"
+                                   HasShadow="False">
+                                <Entry HorizontalTextAlignment="End"
+                                       Text="00087"
+                                       Margin="5,3,5,3">
+                                    <Entry.Effects>
+                                        <effects:EntryLineTransparentEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                            </Frame>
+                            
+                        </Grid>
+                    </Grid>
+                    <StackLayout>
+                        <Label Style="{StaticResource LabelStyle}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Category Name "/>
+                                    <Span Text="*" TextColor="{StaticResource ErrorColor}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <autoSuggest:AutoSuggestBox Text="{Binding Name.Value, Mode=TwoWay}">
+                            <autoSuggest:AutoSuggestBox.Behaviors>
+                                <behaviors:EventToCommandBehavior EventName="TextChanged"
+							                                  Command="{Binding ValidateNameCommand}" />
+                            </autoSuggest:AutoSuggestBox.Behaviors>
+                            <!--<autoSuggest:AutoSuggestBox.Triggers>
+                                <DataTrigger TargetType="Entry"
+							             Binding="{Binding Name.IsValid}"
+							             Value="False">
+                                    <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                                </DataTrigger>
+                            </autoSuggest:AutoSuggestBox.Triggers>-->
+                            <!--<autoSuggest:AutoSuggestBox.Style>
+                                <OnPlatform x:TypeArguments="Style">
+                                    <On Platform="Android" Value="{StaticResource EntryStyle}" />
+                                </OnPlatform>
+                            </autoSuggest:AutoSuggestBox.Style>-->
+                        </autoSuggest:AutoSuggestBox>
+                        <Label Text="{Binding Name.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+					       Style="{StaticResource LabelErrorStyle}"/>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Style="{StaticResource LabelStyle}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Category Name "/>
+                                    <Span Text="*" TextColor="{StaticResource ErrorColor}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Entry Text="{Binding Name.Value, Mode=TwoWay}">
+                            <Entry.Behaviors>
+                                <behaviors:EventToCommandBehavior EventName="TextChanged"
+							                                  Command="{Binding ValidateNameCommand}" />
+                            </Entry.Behaviors>
+                            <Entry.Triggers>
+                                <DataTrigger TargetType="Entry"
+							             Binding="{Binding Name.IsValid}"
+							             Value="False">
+                                    <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                                </DataTrigger>
+                            </Entry.Triggers>
+                            <Entry.Style>
+                                <OnPlatform x:TypeArguments="Style">
+                                    <On Platform="Android" Value="{StaticResource EntryStyle}" />
+                                </OnPlatform>
+                            </Entry.Style>
+                        </Entry>
+                        <Label Text="{Binding Name.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+					       Style="{StaticResource LabelErrorStyle}"/>
+                    </StackLayout>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <DatePicker Grid.Column="0" />
+                        <Image Grid.Column="1" 
+                               Source="ic_add_white_36dp"/>
+                        <Image Grid.Column="2" 
+                               Source="ic_add_white_36dp"/>
+                    </Grid>
+                </StackLayout>
+            </ScrollView>
+            <ListView Grid.Row="1">
+                
+            </ListView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
