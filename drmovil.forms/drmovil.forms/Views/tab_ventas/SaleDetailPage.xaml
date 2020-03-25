@@ -67,7 +67,7 @@
                         <Label Style="{StaticResource LabelStyle}">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Category Name "/>
+                                    <Span Text="Cliente"/>
                                     <Span Text="*" TextColor="{StaticResource ErrorColor}"/>
                                 </FormattedString>
                             </Label.FormattedText>
@@ -97,19 +97,19 @@
                         <Label Style="{StaticResource LabelStyle}">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Category Name "/>
+                                    <Span Text="Comentarios"/>
                                     <Span Text="*" TextColor="{StaticResource ErrorColor}"/>
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                        <Entry Text="{Binding Name.Value, Mode=TwoWay}">
+                        <Entry Text="{Binding Comments.Value, Mode=TwoWay}">
                             <Entry.Behaviors>
                                 <behaviors:EventToCommandBehavior EventName="TextChanged"
-							                                  Command="{Binding ValidateNameCommand}" />
+							                                      Command="{Binding ValidateCommentsCommand}" />
                             </Entry.Behaviors>
                             <Entry.Triggers>
                                 <DataTrigger TargetType="Entry"
-							             Binding="{Binding Name.IsValid}"
+							             Binding="{Binding Comments.IsValid}"
 							             Value="False">
                                     <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
                                 </DataTrigger>
@@ -120,7 +120,7 @@
                                 </OnPlatform>
                             </Entry.Style>
                         </Entry>
-                        <Label Text="{Binding Name.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                        <Label Text="{Binding Comments.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
 					       Style="{StaticResource LabelErrorStyle}"/>
                     </StackLayout>
                     <Grid>

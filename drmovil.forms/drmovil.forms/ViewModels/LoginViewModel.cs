@@ -41,6 +41,7 @@ namespace drmovil.forms.ViewModels
                 Settings.Stores = getFromLocal();
             }
 
+            // TODO: retirar este seteo cuando la parte de configuración este lista 
             if (Settings.Stores?.Count > 0)
             {
                 Settings.StoreSeleted = Settings.Stores.FirstOrDefault();

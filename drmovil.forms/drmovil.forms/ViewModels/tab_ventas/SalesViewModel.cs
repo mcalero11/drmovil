@@ -25,13 +25,8 @@ namespace drmovil.forms.ViewModels.tab_ventas
             set { SetProperty(ref _salesList, value); }
         }
 
-        private ObservableCollection<string> _storeList;
-
-        public ObservableCollection<string> StoreList
-        {
-            get { return _storeList; }
-            set { SetProperty(ref _storeList, value); }
-        }
+        public ObservableCollection<string> StoreList => new ObservableCollection<string>(Settings.Stores.Select(x => x.Name).ToList());
+        
 
         private string _storeSelectedName;
 
@@ -47,7 +42,6 @@ namespace drmovil.forms.ViewModels.tab_ventas
         public Command SelectedStoreChangedCommand { get; set; }
         public SalesViewModel()
         {
-            StoreList = new ObservableCollection<string>(Settings.Stores.Select(x => x.Name).ToList());
             StoreSelectedName = Settings.StoreSeleted.Name;
 
             SelectedStoreChangedCommand = new Command<object>(async (obj) => await SelectedStoreChanged(obj));

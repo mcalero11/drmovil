@@ -25,14 +25,8 @@ namespace drmovil.forms.ViewModels.tab_servicios
 			set { SetProperty(ref _taskList, value); }
 		}
 
-		private ObservableCollection<string> _storeList;
-
-		public ObservableCollection<string> StoreList
-		{
-			get { return _storeList; }
-			set { SetProperty(ref _storeList, value); }
-		}
-
+		public ObservableCollection<string> StoreList => new ObservableCollection<string>(Settings.Stores.Select(x => x.Name).ToList());
+		
 		private string _storeSelectedName;
 
 		public string StoreSelectedName
@@ -47,8 +41,7 @@ namespace drmovil.forms.ViewModels.tab_servicios
 
 		public ServicesViewModel()
 		{
-			StoreList = new ObservableCollection<string>(Settings.Stores.Select(x => x.Name).ToList());
-			StoreSelectedName = Settings.Stores.FirstOrDefault().Name;
+			StoreSelectedName = Settings.StoreSeleted.Name;
 
 			SelectedStoreChangedCommand = new Command<object>(async (obj) => await SelectedStoreChanged(obj));
 			RefreshCommand = new Command(async () => await RefreshList());
