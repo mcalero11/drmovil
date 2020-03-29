@@ -154,6 +154,7 @@
                         </ViewCell>
                     </DataTemplate>
                 </controls:CustomListView.ItemTemplate>
+                
             </controls:CustomListView>
 
             <Image Source="empty_box"

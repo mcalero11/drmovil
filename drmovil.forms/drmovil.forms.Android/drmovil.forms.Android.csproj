@@ -53,11 +53,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Rg.Plugins.Popup">
+      <Version>1.2.0.223</Version>
+    </PackageReference>
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.6.292</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.5.0.396" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.5.1" />
+    <PackageReference Include="Xamarin.Forms" Version="4.5.0.495" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.2" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -205,6 +208,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\empty_box.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\calculator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\add_brown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\minus_brown.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

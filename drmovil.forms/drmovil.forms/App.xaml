@@ -34,7 +34,7 @@
             <Style x:Key="EntryStyle" TargetType="{x:Type Entry}">
                 <Setter Property="TextColor" Value="{StaticResource TextColor}" />
                 <Setter Property="PlaceholderColor" Value="{StaticResource DisableColor}" />
-                <Setter Property="FontSize" Value="Default" />
+                <Setter Property="FontSize" Value="Body" />
                 <Setter Property="behaviors:LineColorBehavior.ApplyLineColor" Value="True" />
                 <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource TextColor}" />
                 <Setter Property="HorizontalOptions" Value="FillAndExpand" />
@@ -48,7 +48,7 @@
                 </Style.Triggers>
             </Style>
             <Style x:Key="LabelStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="Default" />
+                <Setter Property="FontSize" Value="Body" />
                 <Setter Property="TextColor" Value="{StaticResource TextColor}" />
                 <Setter Property="Margin" Value="0" />
                 <Setter Property="VerticalTextAlignment" Value="Center" />

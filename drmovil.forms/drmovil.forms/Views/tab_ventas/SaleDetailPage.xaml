@@ -6,6 +6,7 @@
              xmlns:converters="clr-namespace:drmovil.forms.Converters"
              xmlns:behaviors="clr-namespace:drmovil.forms.Behaviors"
              xmlns:effects="clr-namespace:drmovil.forms.Effects"
+             xmlns:controls="clr-namespace:drmovil.forms.Controls"
              xmlns:autoSuggest="clr-namespace:dotMorten.Xamarin.Forms;assembly=dotMorten.Xamarin.Forms.AutoSuggestBox"
              mc:Ignorable="d"
              Shell.TabBarIsVisible="False"
@@ -13,6 +14,19 @@
              BackgroundColor="{StaticResource BackgroundColor}">
     <ContentPage.Resources>
         <converters:ShowFirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
+        <ResourceDictionary>
+            <Style x:Key="LabelList" TargetType="Label">
+                <Setter Property="FontSize" Value="Caption" />
+                <Setter Property="TextColor" Value="#373333" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="FontFamily" Value="{StaticResource RobotoMono-Regular-Font}" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="CharacterSpacing" Value="3" />
+            </Style>
+
+            
+        </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
@@ -21,7 +35,8 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <ScrollView Grid.Row="0">
-                <StackLayout>
+                <StackLayout Margin="7,7,7,5"
+                             Spacing="4">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -29,12 +44,13 @@
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0"
                                Text="Marvin Calero, Dr.Movil San Miguel, San Miguel, El Salvador"
-                               FontSize="Caption"
+                               FontSize="Micro"
                                VerticalOptions="Center"
                                VerticalTextAlignment="Center"
                                HorizontalTextAlignment="Start"
                                MaxLines="3"
-                               LineBreakMode="TailTruncation"/>
+                               LineBreakMode="TailTruncation"
+                               TextColor="{StaticResource TextColor}"/>
                         <Grid Grid.Column="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -46,15 +62,25 @@
                                    VerticalTextAlignment="Center"
                                    HorizontalTextAlignment="End"
                                    MaxLines="1"
-                                   LineBreakMode="TailTruncation"/>
+                                   LineBreakMode="TailTruncation"
+                                   FontFamily="{StaticResource Roboto-Medium-Font}"
+                                   TextColor="#373333"
+                                   FontSize="Body"/>
                             <Frame Grid.Column="1"
-                                   BorderColor="{StaticResource DisableColor}"
                                    Padding="0"
-                                   CornerRadius="5"
-                                   HasShadow="False">
+                                   CornerRadius="1"
+                                   HasShadow="False"
+                                   BorderColor="{StaticResource TextColor}">
                                 <Entry HorizontalTextAlignment="End"
                                        Text="00087"
-                                       Margin="5,3,5,3">
+                                       Margin="5,1,5,1"
+                                       TextColor="#373333"
+                                       MaxLength="6"
+                                       FlowDirection="RightToLeft" 
+                                       Keyboard="Numeric" 
+                                       FontFamily="{StaticResource RobotoMono-Regular-Font}"
+                                       FontSize="Default"
+                                       >
                                     <Entry.Effects>
                                         <effects:EntryLineTransparentEffect />
                                     </Entry.Effects>
@@ -63,8 +89,11 @@
                             
                         </Grid>
                     </Grid>
-                    <StackLayout>
-                        <Label Style="{StaticResource LabelStyle}">
+                    <StackLayout Margin="0"
+                                 Spacing="0">
+                        <Label Style="{StaticResource LabelStyle}"
+                               TextColor="#373333"
+                               FontFamily="{StaticResource Roboto-Medium-Font}">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Cliente"/>
@@ -72,44 +101,18 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                        <autoSuggest:AutoSuggestBox Text="{Binding Name.Value, Mode=TwoWay}">
-                            <autoSuggest:AutoSuggestBox.Behaviors>
-                                <behaviors:EventToCommandBehavior EventName="TextChanged"
-							                                  Command="{Binding ValidateNameCommand}" />
-                            </autoSuggest:AutoSuggestBox.Behaviors>
-                            <!--<autoSuggest:AutoSuggestBox.Triggers>
-                                <DataTrigger TargetType="Entry"
-							             Binding="{Binding Name.IsValid}"
-							             Value="False">
-                                    <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
-                                </DataTrigger>
-                            </autoSuggest:AutoSuggestBox.Triggers>-->
-                            <!--<autoSuggest:AutoSuggestBox.Style>
-                                <OnPlatform x:TypeArguments="Style">
-                                    <On Platform="Android" Value="{StaticResource EntryStyle}" />
-                                </OnPlatform>
-                            </autoSuggest:AutoSuggestBox.Style>-->
-                        </autoSuggest:AutoSuggestBox>
-                        <Label Text="{Binding Name.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
-					       Style="{StaticResource LabelErrorStyle}"/>
-                    </StackLayout>
-                    <StackLayout>
-                        <Label Style="{StaticResource LabelStyle}">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Comentarios"/>
-                                    <Span Text="*" TextColor="{StaticResource ErrorColor}"/>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Entry Text="{Binding Comments.Value, Mode=TwoWay}">
+                        <Entry Text="{Binding Customer.Value, Mode=TwoWay}"
+                               Placeholder="Nombre"
+                               TextColor="#373333"
+                               Margin="5,0,5,0"
+                               >
                             <Entry.Behaviors>
                                 <behaviors:EventToCommandBehavior EventName="TextChanged"
-							                                      Command="{Binding ValidateCommentsCommand}" />
+							                                  Command="{Binding ValidateCustomerCommand}" />
                             </Entry.Behaviors>
                             <Entry.Triggers>
                                 <DataTrigger TargetType="Entry"
-							             Binding="{Binding Comments.IsValid}"
+							             Binding="{Binding Customer.IsValid}"
 							             Value="False">
                                     <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
                                 </DataTrigger>
@@ -120,26 +123,128 @@
                                 </OnPlatform>
                             </Entry.Style>
                         </Entry>
-                        <Label Text="{Binding Comments.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
-					       Style="{StaticResource LabelErrorStyle}"/>
+                        <Label Text="{Binding Customer.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+					           Style="{StaticResource LabelErrorStyle}"
+                               Margin="5,0,5,0"
+                               Padding="0"/>
                     </StackLayout>
-                    <Grid>
+                    <StackLayout Margin="0" 
+                                 Spacing="0">
+                        <Label Style="{StaticResource LabelStyle}"
+                               TextColor="#373333"
+                               Text="Comentarios" 
+                               FontFamily="{StaticResource Roboto-Medium-Font}"/>
+                        <Editor AutoSize="TextChanges"
+                                Placeholder="abc"
+                                PlaceholderColor="{StaticResource DisableColor}"
+                                FontSize="Body"
+                                HorizontalOptions="FillAndExpand"
+                                BackgroundColor="Transparent"
+                                VerticalOptions="Center"
+                                TextColor="#373333"
+                                Margin="5,0,5,0"/>
+                    </StackLayout>
+                    <Grid ColumnSpacing="12">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <DatePicker Grid.Column="0" />
-                        <Image Grid.Column="1" 
-                               Source="ic_add_white_36dp"/>
-                        <Image Grid.Column="2" 
-                               Source="ic_add_white_36dp"/>
+                        <DatePicker Grid.Column="0" 
+                                    TextColor="{StaticResource AccentColor}"
+                                    Format="dddd, dd/MM/yyyy"
+                                    VerticalOptions="Center"/>
+                        <ImageButton Grid.Column="1" 
+                               Source="calculator"
+                               WidthRequest="32"
+                               VerticalOptions="Center"
+                                     BackgroundColor="{StaticResource BackgroundColor}"
+                                     CornerRadius="6"/>
+                        <ImageButton Grid.Column="2" 
+                                     Source="add"
+                                     CornerRadius="17"
+                                     WidthRequest="34"
+                                     VerticalOptions="Center"
+                                     Margin="6,0,10,0"
+                                     BackgroundColor="{StaticResource BackgroundColor}"
+                                     Command="{Binding NewItemCommand}"/>
                     </Grid>
                 </StackLayout>
             </ScrollView>
-            <ListView Grid.Row="1">
+            <controls:CustomListView Grid.Row="1"
+                      BackgroundColor="White"
+                      ItemsSource="{Binding DetailsMock}"
+                      SeparatorVisibility="None">
+                <controls:CustomListView.Footer>
+                    <Grid Margin="10,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="1" />
+                        </Grid.RowDefinitions>
+                        <Label Text="23 Artículos"
+                               Grid.Column="0"
+                               Grid.Row="1"
+                               FontFamily="{StaticResource RobotoMono-Medium-Font}"
+                               Style="{StaticResource LabelList}"
+                               Margin="10,10,0,10"/>
+                        <Label Text="$45.00"
+                               Grid.Column="1"
+                               Grid.Row="1"
+                               FontFamily="{StaticResource RobotoMono-Medium-Font}"
+                               Style="{StaticResource LabelList}"/>
+                        
+                    </Grid>
+                </controls:CustomListView.Footer>
+                <controls:CustomListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid VerticalOptions="Center"
+                                  Margin="10,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="1" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0"
+                                       Grid.Row="1"
+                                       Text="{Binding Quantity}" 
+                                       Style="{StaticResource LabelList}"/>
+                                <Label Grid.Column="1"
+                                       Grid.Row="1"
+                                       Text="x" 
+                                       Style="{StaticResource LabelList}"/>
+                                <Label Grid.Column="2"
+                                       Grid.Row="1"
+                                       Text="{Binding ProductName}" 
+                                       Style="{StaticResource LabelList}"
+                                       Margin="0,5"/>
+                                <Label Grid.Column="3"
+                                       Grid.Row="1"
+                                       Text="{Binding Price}" 
+                                       Style="{StaticResource LabelList}"/>
+                                <BoxView Grid.Column="0"
+                                         Grid.ColumnSpan="4" 
+                                         Color="{StaticResource DisableColor}"
+                                         HeightRequest="0.1"
+                                         Grid.Row="2"
+                                         Margin="10,0"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </controls:CustomListView.ItemTemplate>
                 
-            </ListView>
+            </controls:CustomListView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
