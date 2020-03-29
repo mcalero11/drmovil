@@ -9,51 +9,18 @@ namespace drmovil.forms.Data.Repository
     public class Repository<T> : IRepository<T> where T : Entities.IEntity, new()
     {
         protected SQLiteConnection connection = null;
-        protected SQLiteAsyncConnection connectionAsync = null;
 
         /// <summary>
         /// Returns an instance of Repository
         /// </summary>
-        /// <param name="isAsync">Specify when the connection required is asyc</param>
-        public Repository(bool isAsync = false)
+        public Repository()
         {
             var sqliteService = new SqliteService.SqliteService();
-            if (isAsync)
-            {
-                connectionAsync = sqliteService.GetAsyncConnection();
-            }
-            else
-            {
-                connection = sqliteService.GetConnection();
-            }
-
-
+            connection = sqliteService.GetConnection();
+            
         }
 
 
-        #region Async Methods
-        public Task<bool> AddAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
-        public Task<bool> DeleteAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
-        public Task<T> FindByIdAsync(int Id)
-        {
-            throw new NotImplementedException();
-        }
-        public Task<bool> UpdateAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
-        public Task<IList<T>> GetFirstAsync(int rows)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
         public bool Add(T entity)
         {
             if (!validateConnection()) return false;
@@ -134,18 +101,11 @@ namespace drmovil.forms.Data.Repository
         /// Returns true when the async connection is Successful
         /// </summary>
         /// <returns></returns>
-        private bool validateAsyncConnection()
-        {
-            if (connectionAsync is null) return false;
-
-            return true;
-        }
 
 
         public void Dispose()
         {
             if (connection != null) this.connection.Dispose();
-            if (connectionAsync != null) this.connectionAsync.CloseAsync();
         }
     }
 }

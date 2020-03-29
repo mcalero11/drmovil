@@ -8,13 +8,6 @@ namespace drmovil.forms.Data.Repository
 {
     public interface IRepository<T> : IDisposable
     {
-        #region Async Methods
-        Task<bool> AddAsync(T entity);
-        Task<bool> DeleteAsync(T entity);
-        Task<bool> UpdateAsync(T entity);
-        Task<T> FindByIdAsync(int Id);
-        Task<IList<T>> GetFirstAsync(int rows = 0);
-        #endregion
 
         bool Add(T entity);
         bool Delete(T entity);

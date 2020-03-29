@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using Task = System.Threading.Tasks.Task;
 
 namespace drmovil.forms.Data.Repository
 {
@@ -13,6 +15,12 @@ namespace drmovil.forms.Data.Repository
             var lst = connection.Table<Sale>().Where(x => x.StoreId == store.Id).ToList();
 
             return lst;
+        }
+
+        public async Task<bool> UpdateCacheableSales(List<Sale> list, int storeId)
+        {
+            await Task.Delay(500);
+            return false;
         }
     }
 }

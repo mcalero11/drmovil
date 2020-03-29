@@ -104,8 +104,17 @@ namespace drmovil.forms.ViewModels.tab_ventas
         private async Task<List<Sale>> getFromServer(Store store)
         {
             await Task.Delay(500);
-
             SaleRepository<Sale> saleRepository = new SaleRepository<Sale>();
+            // se evaluará si la petición es exitosa, de ser el caso
+            // en la bd local se eliminará los datos para esa store
+            // y se volverá a llenar con estos nuevos datos
+
+            if (true)
+            {
+
+            }
+
+            
 
             return saleRepository.GetSalesByStore(store).ToList();
 
